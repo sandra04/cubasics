@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { LinkForMainButton, Loader } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { formatStringDate } from '../../utils/tools'
+import { formatStringDate, fetchData } from '../../utils/tools'
 
 import ProfileNav from '../../components/ProfileNav'
 import Card from '../../components/Card'
@@ -84,14 +84,7 @@ function UserPosts () {
         setDataLoading(true)
         
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/get_by_user_private`, {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify({})
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_by_user_private`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -115,6 +108,9 @@ function UserPosts () {
                 },
                 data: data
             }
+
+            // const result = await fetchResult(res)
+
             let postsToModify = [...result.data]
             if (result.data.length > 0){
                 postsToModify.forEach((post) => {

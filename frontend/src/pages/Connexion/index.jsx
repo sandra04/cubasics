@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { MainButton, LinkForSecondaryButton } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { encodeStringInput } from '../../utils/tools'
+import { encodeStringInput, fetchData } from '../../utils/tools'
 
 import UserProfile from '../UserProfile'
 
@@ -38,13 +38,7 @@ function Connexion() {
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/user/login`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(connexionData)
-            })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/login`, connexionData, null)
         
             // http error
             if (!res.ok) {

@@ -7,7 +7,7 @@ import modifyIcon from '../../assets/modify-icon-grey.png'
 import { MainButton, LinkForMainButton, SecondaryButton, InteractionFalseLink, Loader } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { formatStringDate } from '../../utils/tools'
+import { formatStringDate, fetchData } from '../../utils/tools'
 
 import ProfileNav from '../../components/ProfileNav'
 import Card from '../../components/Card'
@@ -139,14 +139,7 @@ function UserProfile () {
     async function fetchUser() {
         
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/user/get_private`, {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify()
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/get_private`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -185,14 +178,7 @@ function UserProfile () {
         setPostsLoading(true)
         
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/get_by_user_private`, {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify({})
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_by_user_private`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -243,14 +229,7 @@ function UserProfile () {
         setCommentedLoading(true)
         
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/get_commented_posts_by_user`, {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify({})
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_commented_posts_by_user`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -303,14 +282,7 @@ function UserProfile () {
         setFavoriteLoading(true)
         
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/get_favorite_posts_by_user`, {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify({})
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_favorite_posts_by_user`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -362,14 +334,7 @@ function UserProfile () {
     async function deleteUser() {
     
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/user/delete`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify({})
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/delete`, {}, "identified")
         
             // http error
             if (!res.ok) {

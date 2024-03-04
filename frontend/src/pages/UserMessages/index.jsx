@@ -7,7 +7,7 @@ import messageIcon from '../../assets/message.png'
 import { MainButton, SecondaryButton, LinkForMainButton, Loader } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { formatDate, formatStringDate } from '../../utils/tools'
+import { formatDate, formatStringDate, fetchData } from '../../utils/tools'
 
 import ProfileNav from '../../components/ProfileNav'
 import Message from '../../components/Message'
@@ -198,14 +198,7 @@ function Messages () {
         
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/message/get_conversations`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify({})
-            })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/message/get_conversations`, {}, "identified")
             
             // http error
             if (!res.ok) {
@@ -275,14 +268,7 @@ function Messages () {
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/message/get_messages_from_contact`, {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify(contactData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/message/get_messages_from_contact`, contactData, "identified")
         
             // http error
             if (!res.ok) {
@@ -347,14 +333,7 @@ function Messages () {
         }
           
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/message/new_message`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(messageData)
-            })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/message/new_message`, messageData, "identified")
         
             // http error
             if (!res.ok) {
@@ -399,14 +378,7 @@ function Messages () {
         }
           
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/message/modify_seen`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(messageData)
-            })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/message/modify_seen`, messageData, "identified")
         
             // http error
             if (!res.ok) {
@@ -437,14 +409,7 @@ function Messages () {
             }
         
             try {
-                const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/message/delete`, {
-                    method: "post",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${localStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify(messageData)
-                });
+                const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/message/delete`, messageData, "identified")
             
                 // http error
                 if (!res.ok) {
@@ -482,15 +447,8 @@ function Messages () {
         setContactsLoading(true)
         
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/contact/get_contacts`, {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify({})
-            });
-        
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/get_contacts`, {}, "identified")
+            
             // http error
             if (!res.ok) {
                 if (res.status === 401){

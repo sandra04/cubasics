@@ -2,7 +2,7 @@ import {  useState } from 'react'
 import { MainButton, SecondaryButton } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { validateIsGoodFormat, validateIsGoodSize } from '../../utils/tools'
+import { validateIsGoodFormat, validateIsGoodSize, fetchData } from '../../utils/tools'
 
 import Connexion from '../../pages/Connexion'
 
@@ -29,30 +29,22 @@ function FormModifyPhoto({ photo, modifyingPhoto, setModifyingPhoto }){
          }
         
          try {
-             const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/user/modify_photo`, {
-                 method: "post",
-                 headers: {
-                     "Content-Type": "application/json",
-                     'Authorization': `Bearer ${localStorage.getItem('token')}`
-                 },
-                 body: JSON.stringify(userData)
-             })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/modify_photo`, userData, "identified")
          
-             // http error
-             if (!res.ok) {
-                 if (res.status === 401){
-                     localStorage.removeItem('token')
-                     setToken("")
-                 }
-                 else{
-                     const message = `An error has occured: ${res.status} - ${res.statusText}`;
-                     setError(true)
-                     throw new Error(message);
-                 }
-             }
+            // http error
+            if (!res.ok) {
+                if (res.status === 401){
+                    localStorage.removeItem('token')
+                    setToken("")
+                }
+                else{
+                    const message = `An error has occured: ${res.status} - ${res.statusText}`;
+                    setError(true)
+                    throw new Error(message);
+                }
+            }
 
-             setModifyingPhoto(false)
-            
+            setModifyingPhoto(false)    
          }
          // Network error
          catch(err){

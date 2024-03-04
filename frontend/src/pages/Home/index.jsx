@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link, } from 'react-router-dom'
 
 import { LinkForMainButton, LinkForSecondaryButton, Loader } from '../../utils/styles/Atoms'
-import { formatStringDate } from '../../utils/tools'
+import { formatStringDate, fetchData } from '../../utils/tools'
 
 import { useToken } from '../../utils/hooks'
 
@@ -83,35 +83,30 @@ function Home() {
     setDataRecentLoading(true)
 
     try {
-        const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/get_most_recent`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
+      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_most_recent`, {}, null)
     
-        // http error
-        if (!res.ok) {
-            const message = `An error has occured: ${res.status} - ${res.statusText}`;
-            setErrorRecent(true)
-            throw new Error(message);
-        }
-        const data = await res.json();
-        
-            const result = {
-                status: res.status + "-" + res.statusText,
-                headers: {
-                    "Content-Type": res.headers.get("Content-Type"),
-                    "Content-Length": res.headers.get("Content-Length"),
-                },
-                data: data
-            }
-            let postsToModify = [...result.data]
-            postsToModify.forEach((post) => {
-                post.creation_date = formatStringDate(post.creation_date)
-            })
+      // http error
+      if (!res.ok) {
+          const message = `An error has occured: ${res.status} - ${res.statusText}`;
+          setErrorRecent(true)
+          throw new Error(message);
+      }
+      const data = await res.json();
+      
+          const result = {
+              status: res.status + "-" + res.statusText,
+              headers: {
+                  "Content-Type": res.headers.get("Content-Type"),
+                  "Content-Length": res.headers.get("Content-Length"),
+              },
+              data: data
+          }
+          let postsToModify = [...result.data]
+          postsToModify.forEach((post) => {
+              post.creation_date = formatStringDate(post.creation_date)
+          })
 
-            setPostsListRecent(postsToModify)
+          setPostsListRecent(postsToModify)
     }
     // Network error
     catch(err){
@@ -123,39 +118,35 @@ function Home() {
     }
   }
 
+
   async function fetchMostSeenPosts() {
     setDataSeenLoading(true)
 
     try {
-        const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/get_most_seen`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
+      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_most_seen`, {}, null)
     
-        // http error
-        if (!res.ok) {
-            const message = `An error has occured: ${res.status} - ${res.statusText}`;
-            setErrorRecent(true)
-            throw new Error(message);
-        }
-        const data = await res.json();
-        
-            const result = {
-                status: res.status + "-" + res.statusText,
-                headers: {
-                    "Content-Type": res.headers.get("Content-Type"),
-                    "Content-Length": res.headers.get("Content-Length"),
-                },
-                data: data
-            }
-            let postsToModify = [...result.data]
-            postsToModify.forEach((post) => {
-                post.creation_date = formatStringDate(post.creation_date)
-            })
+      // http error
+      if (!res.ok) {
+          const message = `An error has occured: ${res.status} - ${res.statusText}`;
+          setErrorRecent(true)
+          throw new Error(message);
+      }
+      const data = await res.json();
+      
+      const result = {
+          status: res.status + "-" + res.statusText,
+          headers: {
+              "Content-Type": res.headers.get("Content-Type"),
+              "Content-Length": res.headers.get("Content-Length"),
+          },
+          data: data
+      }
+      let postsToModify = [...result.data]
+      postsToModify.forEach((post) => {
+          post.creation_date = formatStringDate(post.creation_date)
+      })
 
-            setPostsListSeen(postsToModify)
+      setPostsListSeen(postsToModify)
     }
     // Network error
     catch(err){

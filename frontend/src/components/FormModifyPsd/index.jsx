@@ -2,7 +2,7 @@ import {  useState } from 'react'
 import styled from 'styled-components'
 import { MainButton, SecondaryButton } from '../../utils/styles/Atoms'
 
-import { checkIsSecurized, encodeStringInput } from '../../utils/tools'
+import { checkIsSecurized, encodeStringInput, fetchData } from '../../utils/tools'
 import { useToken } from '../../utils/hooks'
 
 
@@ -29,14 +29,7 @@ function FormModifyPsd({modifyingPsd, setModifyingPsd}){
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/user/modify_psd`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(userData)
-            })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/modify_psd`, userData, "identified")
         
             // http error
             if (!res.ok) {

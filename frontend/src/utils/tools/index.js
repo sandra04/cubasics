@@ -138,7 +138,7 @@ export function selectFirstOnes (selection, maxItems) {
 
 // FETCH DATA
 
-/*export function fetchData(url, dataToFetch, identify) {
+export function fetchData(url, dataToFetch, identify) {
     const headers = identify ? {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -156,13 +156,15 @@ export function selectFirstOnes (selection, maxItems) {
     )  
 }
 
-export function fetchResult (res) {
-    return {
+/* export function fetchResult (res) {
+    const result = {
         status: res.status + "-" + res.statusText,
         headers: {
             "Content-Type": res.headers.get("Content-Type"),
             "Content-Length": res.headers.get("Content-Length"),
         },
-        data: res.json
+        data: res.json()
     }
+
+    return result
 }*/

@@ -7,7 +7,7 @@ import profilePicture from '../../assets/profile-picture-big.png'
 import { MainButton, SecondaryButton, LinkForMainButton, InteractionFalseLink, Loader } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { formatDate, formatStringDate } from '../../utils/tools'
+import { formatDate, formatStringDate, fetchData } from '../../utils/tools'
 
 import ProfileNav from '../../components/ProfileNav'
 
@@ -126,14 +126,7 @@ function Contacts () {
         
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/contact/get_contacts`, {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify({})
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/get_contacts`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -184,16 +177,8 @@ function Contacts () {
     async function fetchWaitingContacts() {
         setDataLoading(true)
         
-
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/contact/get_contacts_waiting`, {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify({})
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/get_contacts_waiting`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -238,14 +223,7 @@ function Contacts () {
         }
    
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/contact/delete`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(contactData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/delete`, contactData, "identified")
         
             // http error
             if (!res.ok) {
@@ -283,14 +261,7 @@ function Contacts () {
         }
    
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/contact/update`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(contactData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/update`, contactData, "identified")
         
             // http error
             if (!res.ok) {

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { MainButton, LinkForMainButton, LinkForSecondaryButton, Loader } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { checkLengthEnough, formatDate, validateIsGoodFormat, validateIsGoodSize } from '../../utils/tools'
+import { checkLengthEnough, formatDate, validateIsGoodFormat, validateIsGoodSize, fetchData } from '../../utils/tools'
 
 import Connexion from '../Connexion'
 
@@ -92,14 +92,7 @@ function NewPost() {
         }
           
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/create_new_post`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(postData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/create_new_post`, postData, "identified")
         
             // http error
             if (!res.ok) {

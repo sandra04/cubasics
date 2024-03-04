@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { MainButton, SecondaryButton } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { checkLengthEnough, formatDate, encodeStringInput } from '../../utils/tools'
+import { checkLengthEnough, formatDate, encodeStringInput, fetchData } from '../../utils/tools'
 
 import Connexion from '../../pages/Connexion'
 
@@ -48,14 +48,7 @@ function FormModifyComment({ id, content, modifyingComment, setModifyingComment 
         }
           
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/comment/modify`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(commentData)
-            })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/comment/modify`, commentData, "identified")
         
             // http error
             if (!res.ok) {

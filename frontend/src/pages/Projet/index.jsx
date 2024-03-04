@@ -2,10 +2,10 @@ import {  useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { MainButton, SecondaryButton, LinkForMainButton, LinkForSecondaryButton, InteractionFalseLink, Loader } from '../../utils/styles/Atoms'
+import { MainButton, SecondaryButton, LinkForMainButton, LinkForSecondaryButton, InteractionFalseLink } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import {formatDate, formatStringDate} from '../../utils/tools'
+import {formatDate, formatStringDate, fetchData} from '../../utils/tools'
 
 import PopularityInfos from '../../components/PopularityInfos'
 import FormModifyProject from '../../components/FormModifyProject'
@@ -75,14 +75,7 @@ function Project() {
         }
 
         try{
-            const res= await fetch(`${process.env.REACT_APP_API_PATH}/api/project/get_by_id`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(projectData)
-            })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/get_by_id`, projectData, "identified")
 
             if (!res.ok) {
                 const message = `An error has occured: ${res.status} - ${res.statusText}`;
@@ -125,14 +118,7 @@ function Project() {
         }
     
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/project/delete`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(projectData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/delete`, projectData, "identified")
         
             // http error
             if (!res.ok) {
@@ -172,13 +158,7 @@ function Project() {
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/api/project/add_view`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(projectData)
-            })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/api/project/add_view`, projectData, null)
         
             // http error
             if (!res.ok) {

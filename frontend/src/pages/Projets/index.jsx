@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 import { SecondaryButton, LinkForMainButton, Loader } from '../../utils/styles/Atoms'
-import { formatStringDate, encodeStringInput } from '../../utils/tools'
+import { formatStringDate, encodeStringInput, fetchData } from '../../utils/tools'
 
 import Card from '../../components/Card'
 import Search from '../../components/Search'
@@ -177,32 +177,26 @@ function Projects() {
   async function fetchProfiles() {
 
     try {
-        const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/project/profiles`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({})
-        });
+      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/profiles`, {}, null)
     
-        // http error
-        if (!res.ok) {
-            const message = `An error has occured: ${res.status} - ${res.statusText}`;
-            setError(true)
-            throw new Error(message);
-        }
-        const data = await res.json();
-        
-        const result = {
-            status: res.status + "-" + res.statusText,
-            headers: {
-                "Content-Type": res.headers.get("Content-Type"),
-                "Content-Length": res.headers.get("Content-Length"),
-            },
-            data: data
-        }
+      // http error
+      if (!res.ok) {
+          const message = `An error has occured: ${res.status} - ${res.statusText}`;
+          setError(true)
+          throw new Error(message);
+      }
+      const data = await res.json();
+      
+      const result = {
+          status: res.status + "-" + res.statusText,
+          headers: {
+              "Content-Type": res.headers.get("Content-Type"),
+              "Content-Length": res.headers.get("Content-Length"),
+          },
+          data: data
+      }
 
-        setProfilesList(result.data)
+      setProfilesList(result.data)
     }
     // Network error
     catch(err){
@@ -215,32 +209,26 @@ function Projects() {
   async function fetchStyles() {
 
     try {
-        const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/project/styles`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({})
-        });
-    
-        // http error
-        if (!res.ok) {
-            const message = `An error has occured: ${res.status} - ${res.statusText}`;
-            setError(true)
-            throw new Error(message);
-        }
-        const data = await res.json();
-    
-        const result = {
-            status: res.status + "-" + res.statusText,
-            headers: {
-                "Content-Type": res.headers.get("Content-Type"),
-                "Content-Length": res.headers.get("Content-Length"),
-            },
-            data: data
-        }
+      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/styles`, {}, null)
+       
+      // http error
+      if (!res.ok) {
+          const message = `An error has occured: ${res.status} - ${res.statusText}`;
+          setError(true)
+          throw new Error(message);
+      }
+      const data = await res.json();
+  
+      const result = {
+          status: res.status + "-" + res.statusText,
+          headers: {
+              "Content-Type": res.headers.get("Content-Type"),
+              "Content-Length": res.headers.get("Content-Length"),
+          },
+          data: data
+      }
 
-        setStylesList(result.data)
+      setStylesList(result.data)
     }
 
     // Network error
@@ -262,36 +250,30 @@ function Projects() {
     }
 
     try {
-        const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/project/get`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(filterData)
-        });
+      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/get`, filterData, null)
     
-        // http error
-        if (!res.ok) {
-            const message = `An error has occured: ${res.status} - ${res.statusText}`;
-            setError(true)
-            throw new Error(message);
-        }
-        const data = await res.json();
-        
-            const result = {
-                status: res.status + "-" + res.statusText,
-                headers: {
-                    "Content-Type": res.headers.get("Content-Type"),
-                    "Content-Length": res.headers.get("Content-Length"),
-                },
-                data: data
-            }
-            let projectsToModify = [...result.data]
-            projectsToModify.forEach((project) => {
-                project.creation_date = formatStringDate(project.creation_date)
-            })
+      // http error
+      if (!res.ok) {
+          const message = `An error has occured: ${res.status} - ${res.statusText}`;
+          setError(true)
+          throw new Error(message);
+      }
+      const data = await res.json();
+      
+      const result = {
+          status: res.status + "-" + res.statusText,
+          headers: {
+              "Content-Type": res.headers.get("Content-Type"),
+              "Content-Length": res.headers.get("Content-Length"),
+          },
+          data: data
+      }
+      let projectsToModify = [...result.data]
+      projectsToModify.forEach((project) => {
+          project.creation_date = formatStringDate(project.creation_date)
+      })
 
-            setProjectsList(projectsToModify)
+      setProjectsList(projectsToModify)
     }
     // Network error
     catch(err){

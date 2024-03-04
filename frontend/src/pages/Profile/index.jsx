@@ -6,7 +6,7 @@ import profilePicture from '../../assets/profile-picture-big.png'
 import { MainButton, LinkForMainButton, LinkForSecondaryButton, InteractionFalseLink, Loader } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { formatStringDate } from '../../utils/tools'
+import { formatStringDate, fetchData } from '../../utils/tools'
 
 import Card from '../../components/Card'
 
@@ -109,15 +109,8 @@ function Profile () {
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/user/get`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify(userData)
-            });
-        
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/get`, userData, "identified")
+           
             // http error
             if (!res.ok) {
                 const message = `An error has occured: ${res.status} - ${res.statusText}`;
@@ -126,21 +119,21 @@ function Profile () {
             }
             const data = await res.json();
             
-                const result = {
-                    status: res.status + "-" + res.statusText,
-                    headers: {
-                        "Content-Type": res.headers.get("Content-Type"),
-                        "Content-Length": res.headers.get("Content-Length"),
-                    },
-                    data: data
-                }
-                
-                setUser(result.data)
-                fetchPosts()
-                fetchProjects()
-                if(!result.data.profileOwner){
-                    fetchIsContact()
-                }
+            const result = {
+                status: res.status + "-" + res.statusText,
+                headers: {
+                    "Content-Type": res.headers.get("Content-Type"),
+                    "Content-Length": res.headers.get("Content-Length"),
+                },
+                data: data
+            }
+            
+            setUser(result.data)
+            fetchPosts()
+            fetchProjects()
+            if(!result.data.profileOwner){
+                fetchIsContact()
+            }
         }
         // Network error
         catch(err){
@@ -157,14 +150,7 @@ function Profile () {
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/contact/search_contact`, {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body:JSON.stringify(userData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/search_contact`, userData, "identified")
         
             // http error
             if (!res.ok) {
@@ -180,17 +166,17 @@ function Profile () {
             }
             const data = await res.json();
             
-                const result = {
-                    status: res.status + "-" + res.statusText,
-                    headers: {
-                        "Content-Type": res.headers.get("Content-Type"),
-                        "Content-Length": res.headers.get("Content-Length"),
-                    },
-                    data: data
-                }
+            const result = {
+                status: res.status + "-" + res.statusText,
+                headers: {
+                    "Content-Type": res.headers.get("Content-Type"),
+                    "Content-Length": res.headers.get("Content-Length"),
+                },
+                data: data
+            }
 
-                let response = result.data.isContact
-                setIsContact(response)
+            let response = result.data.isContact
+            setIsContact(response)
         }
         // Network error
         catch(err){
@@ -207,13 +193,7 @@ function Profile () {
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/get_by_user`, {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body:JSON.stringify(userData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_by_user`, userData, null)
         
             // http error
             if (!res.ok) {
@@ -223,24 +203,24 @@ function Profile () {
             }
             const data = await res.json();
             
-                const result = {
-                    status: res.status + "-" + res.statusText,
-                    headers: {
-                        "Content-Type": res.headers.get("Content-Type"),
-                        "Content-Length": res.headers.get("Content-Length"),
-                    },
-                    data: data
+            const result = {
+                status: res.status + "-" + res.statusText,
+                headers: {
+                    "Content-Type": res.headers.get("Content-Type"),
+                    "Content-Length": res.headers.get("Content-Length"),
+                },
+                data: data
+            }
+
+            let postsToModify = [...result.data]
+            postsToModify.forEach((post) => {
+                post.creation_date = formatStringDate(post.creation_date)
+                if (post.modification_date){
+                    post.modification_date = formatStringDate(post.modification_date)
                 }
-  
-                let postsToModify = [...result.data]
-                postsToModify.forEach((post) => {
-                    post.creation_date = formatStringDate(post.creation_date)
-                    if (post.modification_date){
-                        post.modification_date = formatStringDate(post.modification_date)
-                    }
-                })
-    
-                setUserPosts(postsToModify)
+            })
+
+            setUserPosts(postsToModify)
         }
         // Network error
         catch(err){
@@ -261,13 +241,7 @@ function Profile () {
             pseudo: currentProfile
         }
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/project/get_by_user`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(userData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/get_by_user`, userData, null)
         
             // http error
             if (!res.ok) {
@@ -277,20 +251,20 @@ function Profile () {
             }
             const data = await res.json();
             
-                const result = {
-                    status: res.status + "-" + res.statusText,
-                    headers: {
-                        "Content-Type": res.headers.get("Content-Type"),
-                        "Content-Length": res.headers.get("Content-Length"),
-                    },
-                    data: data
-                }
-                let projectsToModify = [...result.data]
-                projectsToModify.forEach((project) => {
-                    project.creation_date = formatStringDate(project.creation_date)
-                })
-    
-                setUserProjects(projectsToModify)
+            const result = {
+                status: res.status + "-" + res.statusText,
+                headers: {
+                    "Content-Type": res.headers.get("Content-Type"),
+                    "Content-Length": res.headers.get("Content-Length"),
+                },
+                data: data
+            }
+            let projectsToModify = [...result.data]
+            projectsToModify.forEach((project) => {
+                project.creation_date = formatStringDate(project.creation_date)
+            })
+
+            setUserProjects(projectsToModify)
         }
         // Network error
         catch(err){
@@ -310,14 +284,7 @@ function Profile () {
         }
    
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/contact/new_contact`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(contactData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/new_contact`, contactData, "identified")
         
             // http error
             if (!res.ok) {
@@ -351,14 +318,7 @@ function Profile () {
         }
    
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/contact/delete`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(contactData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/delete`, contactData, "identified")
         
             // http error
             if (!res.ok) {

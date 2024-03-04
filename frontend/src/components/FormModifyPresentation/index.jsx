@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { MainButton, SecondaryButton } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { encodeStringInput } from '../../utils/tools'
+import { encodeStringInput, fetchData } from '../../utils/tools'
 
 import Connexion from '../../pages/Connexion'
 
@@ -35,15 +35,8 @@ function FormModifyPresentation({ presentation, modifyingPresentation, setModify
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/user/modify_presentation`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(userData)
-            })
-        
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/modify_presentation`, userData, "identified")
+           
             // http error
             if (!res.ok) {
                 if (res.status === 401){

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { MainButton, SecondaryButton } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { checkLengthEnough, formatDate, validateIsGoodFormat, validateIsGoodSize, encodeStringInput } from '../../utils/tools'
+import { checkLengthEnough, formatDate, validateIsGoodFormat, validateIsGoodSize, encodeStringInput, fetchData } from '../../utils/tools'
 
 import Connexion from '../../pages/Connexion'
 
@@ -77,15 +77,8 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
         }
         
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/modify`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(postData)
-            })
-        
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/modify`, postData, "identified")
+           
             // http error
             if (!res.ok) {
                 if (res.status === 401){

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { MainButton, LinkForMainButton, LinkForSecondaryButton, Loader } from '../../utils/styles/Atoms'
 
-import { checkLengthEnough, checkIsSecurized, formatDate } from '../../utils/tools'
+import { checkLengthEnough, checkIsSecurized, formatDate, fetchData } from '../../utils/tools'
 
 
 
@@ -67,13 +67,7 @@ function Inscription() {
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/user/signup`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(userData)
-            })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/signup`, userData, null)
         
             // http error
             if (!res.ok) {
@@ -109,14 +103,7 @@ function Inscription() {
         }
           
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/user/get_pseudo`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(userData)
-            });
-            
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/get_pseudo`, userData, null)
 
             // http error
             if (!res.ok) {

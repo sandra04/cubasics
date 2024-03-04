@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { LinkForMainButton, SecondaryButton, Loader } from '../../utils/styles/Atoms'
-import { formatStringDate, encodeStringInput } from '../../utils/tools'
+import { formatStringDate, encodeStringInput, fetchData } from '../../utils/tools'
 
 import Card from '../../components/Card'
 import Search from '../../components/Search'
@@ -146,32 +146,26 @@ function Posts() {
   async function fetchCategories() {
 
     try {
-        const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/categories`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({})
-        });
-    
-        // http error
-        if (!res.ok) {
-            const message = `An error has occured: ${res.status} - ${res.statusText}`;
-            setError(true)
-            throw new Error(message);
-        }
-        const data = await res.json();
+      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/categories`, {}, null)
 
-        const result = {
-            status: res.status + "-" + res.statusText,
-            headers: {
-                "Content-Type": res.headers.get("Content-Type"),
-                "Content-Length": res.headers.get("Content-Length"),
-            },
-            data: data
-        }
-        const fetchedCategories = result.data.map((element)=> element.category)
-        setCategoriesList(fetchedCategories)
+      // http error
+      if (!res.ok) {
+          const message = `An error has occured: ${res.status} - ${res.statusText}`;
+          setError(true)
+          throw new Error(message);
+      }
+      const data = await res.json();
+
+      const result = {
+          status: res.status + "-" + res.statusText,
+          headers: {
+              "Content-Type": res.headers.get("Content-Type"),
+              "Content-Length": res.headers.get("Content-Length"),
+          },
+          data: data
+      }
+      const fetchedCategories = result.data.map((element)=> element.category)
+      setCategoriesList(fetchedCategories)
     }
     // Network error
     catch(err){
@@ -192,36 +186,30 @@ function Posts() {
     }
 
     try {
-        const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/get`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(filterData)
-        });
-    
-        // http error
-        if (!res.ok) {
-            const message = `An error has occured: ${res.status} - ${res.statusText}`;
-            setError(true)
-            throw new Error(message);
-        }
-        const data = await res.json();
+      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get`, filterData, null)
         
-            const result = {
-                status: res.status + "-" + res.statusText,
-                headers: {
-                    "Content-Type": res.headers.get("Content-Type"),
-                    "Content-Length": res.headers.get("Content-Length"),
-                },
-                data: data
-            }
-            let postsToModify = [...result.data]
-            postsToModify.forEach((post) => {
-                post.creation_date = formatStringDate(post.creation_date)
-            })
+      // http error
+      if (!res.ok) {
+          const message = `An error has occured: ${res.status} - ${res.statusText}`;
+          setError(true)
+          throw new Error(message);
+      }
+      const data = await res.json();
+      
+      const result = {
+          status: res.status + "-" + res.statusText,
+          headers: {
+              "Content-Type": res.headers.get("Content-Type"),
+              "Content-Length": res.headers.get("Content-Length"),
+          },
+          data: data
+      }
+      let postsToModify = [...result.data]
+      postsToModify.forEach((post) => {
+          post.creation_date = formatStringDate(post.creation_date)
+      })
 
-            setPostsList(postsToModify)
+      setPostsList(postsToModify)
     }
     // Network error
     catch(err){

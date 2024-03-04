@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { MainButton, SecondaryButton } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { checkLengthEnough, formatDate, sendCheckboxSelected, cleanText, encodeStringInput } from '../../utils/tools'
+import { checkLengthEnough, formatDate, sendCheckboxSelected, cleanText, encodeStringInput, fetchData } from '../../utils/tools'
 
 import Connexion from '../../pages/Connexion'
 
@@ -113,14 +113,7 @@ function FormModifyProject({ id, title, searchedProfiles, style, content, image,
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/project/modify`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(projectData)
-            })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/modify`, projectData, "identified")
         
             // http error
             if (!res.ok) {

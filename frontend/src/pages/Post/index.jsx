@@ -7,7 +7,7 @@ import favoriteUnselected from '../../assets/favorite-unselected.png'
 import favorite from '../../assets/favorite.png'
 
 import { useToken } from '../../utils/hooks'
-import {checkLengthEnough, formatDate, formatStringDate} from '../../utils/tools'
+import {checkLengthEnough, formatDate, formatStringDate, fetchData} from '../../utils/tools'
 
 import PopularityInfos from '../../components/PopularityInfos'
 import FormModifyPost from '../../components/FormModifyPost'
@@ -101,14 +101,7 @@ function Post() {
         }
 
         try{
-            const res= await fetch(`${process.env.REACT_APP_API_PATH}/api/post/get_by_id`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(postData)
-            })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_by_id`, postData, "identified")
 
             if (!res.ok) {
                 const message = `An error has occured: ${res.status} - ${res.statusText}`;
@@ -158,14 +151,7 @@ function Post() {
         }
     
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/delete`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(postData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/delete`, postData, "identified")
         
             // http error
             if (!res.ok) {
@@ -204,14 +190,8 @@ function Post() {
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/add_view`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(postData)
-            })
-        
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/add_view`, postData, null)
+            
             // http error
             if (!res.ok) {
                 const message = `An error has occured: ${res.status} - ${res.statusText}`;
@@ -241,14 +221,7 @@ function Post() {
         }
     
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/comment/get_by_post`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(commentData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/comment/get_by_post`, commentData, "identified")
         
             // http error
             if (!res.ok) {
@@ -306,14 +279,7 @@ function Post() {
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/favorite/get`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(favoriteData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/favorite/get`, favoriteData, "identified")
         
             // http error
             if (!res.ok) {
@@ -381,14 +347,7 @@ function Post() {
         }
     
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/favorite/add`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(favoriteData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/favorite/add`, favoriteData, "identified")
         
             // http error
             if (!res.ok) {
@@ -422,14 +381,7 @@ function Post() {
         }
     
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/favorite/delete`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(favoriteData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/favorite/delete`, favoriteData, "identified")
         
             // http error
             if (!res.ok) {
@@ -486,14 +438,7 @@ function Post() {
             }
         
             try {
-                const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/comment/delete`, {
-                    method: "post",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${localStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify(commentData)
-                });
+                const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/comment/delete`, commentData, "identified")
             
                 // http error
                 if (!res.ok) {
@@ -547,14 +492,7 @@ function Post() {
         }
           
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/comment/create_new_comment`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(commentData)
-            })
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/comment/create_new_comment`, commentData, "identified")
         
             // http error
             if (!res.ok) {

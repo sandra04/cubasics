@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { MainButton, SecondaryButton } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { formatDate, encodeStringInput } from '../../utils/tools'
+import { formatDate, encodeStringInput, fetchData } from '../../utils/tools'
 
 
 
@@ -34,15 +34,8 @@ function FormModifyMessage({ id, content, image, setModifyingMessage }){
         }
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/message/modify`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(messageData)
-            })
-
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/message/modify`, messageData, "identified")
+        
             // http error
             if (!res.ok) {
                 if (res.status === 401){

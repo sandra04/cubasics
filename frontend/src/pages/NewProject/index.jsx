@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { MainButton, LinkForMainButton, LinkForSecondaryButton, Loader } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { formatDate, checkLengthEnough, sendCheckboxSelected, cleanText } from '../../utils/tools'
+import { formatDate, checkLengthEnough, sendCheckboxSelected, cleanText, fetchData } from '../../utils/tools'
 
 import Connexion from '../Connexion'
 
@@ -124,14 +124,7 @@ function NewProject() {
         }
           
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/project/create_new_project`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(projectData)
-            });
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/create_new_project`, projectData, "identified")
         
             // http error
             if (!res.ok) {
