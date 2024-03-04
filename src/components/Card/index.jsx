@@ -3,12 +3,6 @@ import styled from 'styled-components'
 import PopularityInfos from '../PopularityInfos'
 
 
-/*const PostContainer = styled.div`
-  display:flex;
-  height:100%;
-  flex-wrap:wrap;
-  align-items:space-between;
-`*/
 
 const PostTitle = styled.h2`
   margin-bottom:10px;

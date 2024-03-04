@@ -111,9 +111,9 @@ function FormModifyProject({ id, title, searchedProfiles, style, content, image,
             image:null,
             audio:null,
         }
-        console.log(JSON.parse(JSON.stringify(projectData))) 
+
         try {
-            const res = await fetch("http://localhost:3000/api/project/modify", {
+            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/project/modify`, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -134,16 +134,16 @@ function FormModifyProject({ id, title, searchedProfiles, style, content, image,
                     throw new Error(message);
                 }
             }
-            console.log("Projet modifié !")
             setModifyingProject(false)
            
         }
         // Network error
         catch(err){
-            console.log(err)
+            if (process.env.REACT_APP_SHOW_LOGS) { console.log(err) }
             setError(true)
         }
     }
+
 
     function displayCheckedBeforeModif(list, checkedList){
         let elementsChecked = list.map((element) => {

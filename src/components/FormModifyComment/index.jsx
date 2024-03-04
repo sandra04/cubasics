@@ -15,6 +15,7 @@ const AnswerField = styled.textarea`
     margin:0 auto 40px;
 `
 
+
 function FormModifyComment({ id, content, modifyingComment, setModifyingComment }){
     const { token, setToken } = useToken()
 
@@ -47,7 +48,7 @@ function FormModifyComment({ id, content, modifyingComment, setModifyingComment 
         }
           
         try {
-            const res = await fetch("http://localhost:3000/api/comment/modify", {
+            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/comment/modify`, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -68,15 +69,15 @@ function FormModifyComment({ id, content, modifyingComment, setModifyingComment 
                     throw new Error(message);
                 }
             }
-            console.log("Commentaire modifié !")
             setModifyingComment(false)
         }
         // Network error
         catch(err){
-            console.log(err)
+            if (process.env.REACT_APP_SHOW_LOGS) { console.log(err) }
             setError(true)
         }
     }
+
 
     function checkComment(e){
         e.preventDefault()

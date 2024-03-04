@@ -29,7 +29,7 @@ function FormModifyPsd({modifyingPsd, setModifyingPsd}){
         }
 
         try {
-            const res = await fetch("http://localhost:3000/api/user/modify_psd", {
+            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/user/modify_psd`, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -50,7 +50,6 @@ function FormModifyPsd({modifyingPsd, setModifyingPsd}){
                     throw new Error(message);
                 }
             }
-            console.log("Modifié !")
             setPasswordInput("")
             setNewPasswordInput("")
             setNewPasswordError(false)
@@ -59,7 +58,7 @@ function FormModifyPsd({modifyingPsd, setModifyingPsd}){
         }
         // Network error
         catch(err){
-            console.log(err)
+            if (process.env.REACT_APP_SHOW_LOGS) { console.log(err) }
             setError(true)
         }
     }

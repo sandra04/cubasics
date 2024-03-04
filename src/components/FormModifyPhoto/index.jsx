@@ -1,11 +1,11 @@
-import {  useState, useEffect } from 'react'
-import styled from 'styled-components'
+import {  useState } from 'react'
 import { MainButton, SecondaryButton } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
-import { validateIsGoodFormat, validateIsGoodSize, encodeStringInput } from '../../utils/tools'
+import { validateIsGoodFormat, validateIsGoodSize } from '../../utils/tools'
 
 import Connexion from '../../pages/Connexion'
+
 
 
 function FormModifyPhoto({ photo, modifyingPhoto, setModifyingPhoto }){
@@ -29,7 +29,7 @@ function FormModifyPhoto({ photo, modifyingPhoto, setModifyingPhoto }){
          }
         
          try {
-             const res = await fetch("http://localhost:3000/api/user/modify_photo", {
+             const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/user/modify_photo`, {
                  method: "post",
                  headers: {
                      "Content-Type": "application/json",
@@ -50,13 +50,13 @@ function FormModifyPhoto({ photo, modifyingPhoto, setModifyingPhoto }){
                      throw new Error(message);
                  }
              }
-             console.log("Photo modifiée !")
+
              setModifyingPhoto(false)
             
          }
          // Network error
          catch(err){
-             console.log(err)
+            if (process.env.REACT_APP_SHOW_LOGS) { console.log(err) }
              setError(true)
          }
      }
@@ -69,10 +69,11 @@ function FormModifyPhoto({ photo, modifyingPhoto, setModifyingPhoto }){
             setPhotoInput(reader.result)
         }
         reader.onerror = (error) => {
-          console.log('Error: ', error)
+            if (process.env.REACT_APP_SHOW_LOGS) { console.log('Error: ', error) }
           return null
         }
     }
+
 
     async function handleImage() {
         const selectedFile = document.getElementById('profile-photo').files[0]
@@ -84,10 +85,7 @@ function FormModifyPhoto({ photo, modifyingPhoto, setModifyingPhoto }){
         // setImageInput([])
         if (isImage){
             setImageBadFormat(false)
-            console.log("Votre fichier est au format " + selectedFile.type)
             if (imageIsGoodSize){
-                // La méthode toFixed(2) permet d'arrondir à 2 chiffres après la virgule
-                console.log("Votre fichier fait " + (selectedFile.size / 1024 / 1024).toFixed(2) + " Mo")
                 setImageTooBig(false)
                 
                 try {
@@ -100,7 +98,6 @@ function FormModifyPhoto({ photo, modifyingPhoto, setModifyingPhoto }){
                 }
             }
             else{
-                console.log('Votre image est trop grande :' + (selectedFile.size / 1024 / 1024).toFixed(2) + " Mo. Merci d'importer une image de moins de 4 Mo")
                 fieldValue = ''
                 setImageTooBig(true)
             }
@@ -110,7 +107,6 @@ function FormModifyPhoto({ photo, modifyingPhoto, setModifyingPhoto }){
             setImageTooBig(false)
         }
         else {
-            console.log('Invalid file type. Please upload a JPEG or PNG file.')
             setImageBadFormat(true)
             setImageTooBig(false)
             fieldValue = ''

@@ -7,6 +7,7 @@ import message from '../../assets/message.png'
 
 import { useToken } from '../../utils/hooks'
 
+
 const HeaderWrapper = styled.nav`
   width:100%;
   margin: 0;
@@ -90,9 +91,9 @@ const StyledLink = styled(Link)`
 function Header() {
   const { token, setToken } = useToken()
   const [displayUserActions, setDisplayUserActions] = useState(false)
-  const [isDataLoading, setDataLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [messagesUnseen, setMessagesUnseen] = useState(0)
+  // const [isDataLoading, setDataLoading] = useState(false)
+  // const [error, setError] = useState(null)
+  // const [messagesUnseen, setMessagesUnseen] = useState(0)
 
 
   function handleDisplay(){
@@ -107,7 +108,7 @@ function Header() {
     setToken("")
   }
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (token){
       fetchUnseenMessages()
     }
@@ -165,7 +166,7 @@ function Header() {
     finally{
       setDataLoading(false)
     }
-  }
+  }*/
 
   return (
       <HeaderWrapper>

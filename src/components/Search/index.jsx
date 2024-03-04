@@ -17,7 +17,6 @@ function Search({filters, setFilters}) {
         const filtersToModify = {...filters}
         if (searchField.value !== "" && searchField.value !== " "){
           filtersToModify.search = searchField.value;
-          // searchField.value = ""
         }   
         else{
           filtersToModify.search = ""

@@ -34,7 +34,7 @@ function FormModifyMessage({ id, content, image, setModifyingMessage }){
         }
 
         try {
-            const res = await fetch("http://localhost:3000/api/message/modify", {
+            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/message/modify`, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -55,21 +55,22 @@ function FormModifyMessage({ id, content, image, setModifyingMessage }){
                     throw new Error(message);
                 }
             }
-            console.log("Message modifié !")
             setModifyingMessage(false)
         }
         // Network error
         catch(err){
-            console.log(err)
+            if (process.env.REACT_APP_SHOW_LOGS) { console.log(err) }
             setError(true)
         }
     }
 
+  
     function checkMessage(e){
         e.preventDefault()
         sendMessage()
     }
     
+
     // Modifie la valeur dans le state local à chaque changement de saisie
     function handleInput(e) {
         let text = e.target.value

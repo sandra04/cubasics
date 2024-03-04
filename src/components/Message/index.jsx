@@ -60,18 +60,5 @@ function Message({ id, content, image, date, modifiedDate, seen, user, isSender,
         </div>
     )
 }
-    /*<div>
-      <MessageInfos>
-          {isSender ?
-            <p className="sender-presentation">Envoyé par vous, le {date}</p> :
-            <p>Envoyé par {user}, le {date}</p>}
-      </MessageInfos>
-      {isSender ?
-            <MessageContent className="sender-content">
-                {formattedContent.map((phrase, index) => <p key={index}>{phrase}</p>)}
-            </MessageContent> :
-            <MessageContent>
-                {formattedContent.map((phrase, index) => <p key={index}>{phrase}</p>)}
-            </MessageContent>}
-      </div>*/
+
 export default Message

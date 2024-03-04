@@ -11,19 +11,12 @@ const ErrorWrapper = styled.div`
   padding:60px 0;
 `
 
-/*const Illustration = styled.img`
-  max-width: 600px;
-  width:100%;
-  margin:50px 0;
-`*/
-
 
 
 function Error() {
     return (
     <ErrorWrapper>
         <h1>Oups...</h1>
-        {/* <Illustration src={ErrorImg} /> */}
         <div>
             <p>Il semblerait que la page que vous cherchez n’existe pas</p>
         </div>

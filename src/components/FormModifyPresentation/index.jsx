@@ -35,7 +35,7 @@ function FormModifyPresentation({ presentation, modifyingPresentation, setModify
         }
 
         try {
-            const res = await fetch("http://localhost:3000/api/user/modify_presentation", {
+            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/user/modify_presentation`, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -56,15 +56,15 @@ function FormModifyPresentation({ presentation, modifyingPresentation, setModify
                     throw new Error(message);
                 }
             }
-            console.log("Utilisateur modifié !")
             setModifyingPresentation(false)
         }
         // Network error
         catch(err){
-            console.log(err)
+            if (process.env.REACT_APP_SHOW_LOGS) { console.log(err) }
             setError(true)
         }
     }
+
 
     // Modifie la valeur dans le state local à chaque changement de saisie
     function handlePresentation(e) {

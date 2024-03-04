@@ -6,7 +6,6 @@ import { useToken } from '../../utils/hooks'
 import { checkLengthEnough, formatDate, validateIsGoodFormat, validateIsGoodSize, encodeStringInput } from '../../utils/tools'
 
 import Connexion from '../../pages/Connexion'
-// import { createPath } from 'react-router-dom'
 
 
 
@@ -42,7 +41,6 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
     const [postIsFirstWritting, setPostFirstWritting] = useState(true)
     const [selectedCategory, setSelectedCategory] = useState(category)
     const [postImage, setPostImage] = useState(image ? JSON.parse(image) : [])
-    // const [postImageBase64, setPostImageBase64] = useState([])
     const [imageInput, setImageInput] = useState([])
     const [imageTooBig, setImageTooBig] = useState(false)
     const [imageBadFormat, setImageBadFormat] = useState(false)
@@ -54,18 +52,13 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
     useEffect(() => {
         setPostError(!checkLengthEnough(postValue, 30))
     }, [postValue])
-    /*useEffect(() => {
-        console.log("Mes anciennes images : ", postImageBase64)
-        if (postImageBase64.length === postImage.length){
-            modifyPost()
-        }
-    }, [postImageBase64]);*/
 
 
 
     if(!token){
         return <Connexion/>
     }
+
 
     async function modifyPost(){
        const currentDate = new Date()
@@ -80,12 +73,11 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
             modificationDate: currentDateFormatted,
             oldImage: postImage.length > 0 ? postImage : [],
             newImage: imageInput.length > 0 ? imageInput : null,
-            /*image: (imageInput.length > 0 || postImage.length > 0) ? [...postImageBase64, ...imageInput] : null,*/
             audio:null
         }
         
         try {
-            const res = await fetch("http://localhost:3000/api/post/modify", {
+            const res = await fetch(`${process.env.REACT_APP_API_PATH}/api/post/modify`, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -106,13 +98,12 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
                     throw new Error(message);
                 }
             }
-            console.log("Post modifié !")
             setModifyingPost(false)
            
         }
         // Network error
         catch(err){
-            console.log(err)
+            if (process.env.REACT_APP_SHOW_LOGS) { console.log(err) }
             setError(true)
         }
     }
@@ -132,16 +123,9 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
             let images = [...imageInput]
             images.push(reader.result)
             setImageInput([...images])
-            
-            /*let images = [...fileList]
-            images.push(reader.result)
-            console.log(images)
-            return images*/
-
-            // return reader.result
         }
         reader.onerror = (error) => {
-          console.log('Error: ', error)
+            if (process.env.REACT_APP_SHOW_LOGS) { console.log('Error: ', error) }
           return null
         }
     }
@@ -152,30 +136,13 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
         const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
         const isImage = selectedFile ? validateIsGoodFormat(selectedFile, allowedTypes) : null
         const imageIsGoodSize = selectedFile ? validateIsGoodSize(selectedFile, 4) : null
-        // setImageInput([])
         if (isImage){
             setImageBadFormat(false)
-            console.log("Votre fichier est au format " + selectedFile.type)
             if (imageIsGoodSize){
-                // La méthode toFixed(2) permet d'arrondir à 2 chiffres après la virgule
-                console.log("Votre fichier fait " + (selectedFile.size / 1024 / 1024).toFixed(2) + " Mo")
                 setImageTooBig(false)
                 
                 try {
                     await getBase64(selectedFile)
-
-                    /*const images = await new Promise((resolve) => {
-                        resolve(getBase64(selectedFile, imageInput))
-                    })
-                    images.then((value) => {
-                        console.log(value);
-                    })*/
-
-                    // const images = await getBase64(selectedFile, imageInput)
-                    // console.log(images)
-                    // let images = [...imageInput]
-                    // images.push(currentImage)
-                    // setImageInput([...images])
                 }
                 catch(error) {
                     console.error(error);
@@ -183,7 +150,6 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
                 }
             }
             else{
-                console.log('Votre image est trop grande :' + (selectedFile.size / 1024 / 1024).toFixed(2) + " Mo. Merci d'importer une image de moins de 4 Mo")
                 fieldValue = ''
                 setImageTooBig(true)
             }
@@ -193,7 +159,6 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
             setImageTooBig(false)
         }
         else {
-            console.log('Invalid file type. Please upload a JPEG or PNG file.')
             setImageBadFormat(true)
             setImageTooBig(false)
             fieldValue = ''
@@ -212,32 +177,6 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
         setImageInput([...filteredImages])
     }
 
-    /*function preparePreviousImages(){
-        const previousPostImages = document.getElementsByClassName("previous-post-image")
-
-        Array.from(previousPostImages).forEach((imageToTransform) => {
-            fetch(imageToTransform.src)
-            .then((res) => res.blob())
-            .then((blob) => {
-                // Read the Blob as DataURL using the FileReader API
-                const reader = new FileReader()
-                reader.readAsDataURL(blob)
-                reader.onload = () => {
-                    console.log(reader.result)
-                    let images = [...postImageBase64]
-                    images.push(reader.result)
-                    setPostImageBase64([...images])
-                    console.log("Anciennes images : ", postImageBase64)
-                }
-                reader.onerror = (error) => {
-                console.log('Error: ', error)
-                return null
-                }
-            });
-        })
-    }*/
-    
-
     function checkFields(e){
         e.preventDefault();
         setTitleFirstWritting(false)
@@ -247,12 +186,6 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
         
         if(!titleError && !postError && selectedCategory){
             modifyPost()
-            /*if (postImage.length > 0){
-                preparePreviousImages()
-            }
-            else{
-                modifyPost()
-            }*/
         }
     } 
 
