@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import profilePicture from '../../assets/profile-picture-big.png'
@@ -8,6 +8,7 @@ import { MainButton, SecondaryButton, LinkForMainButton, InteractionFalseLink, L
 
 import { useToken } from '../../utils/hooks'
 import { formatDate, formatStringDate, fetchData } from '../../utils/tools'
+import { ActiveConversationContext } from '../../utils/context'
 
 import ProfileNav from '../../components/ProfileNav'
 
@@ -108,6 +109,8 @@ function Contacts () {
     const [askingDeleteContact, setAskingDeleteContact] = useState("")
     const [deletedContact, setDeletedContact] = useState(false)
     const [displayContacts, setDisplayContacts] = useState("contacts")
+
+    const { setActiveConversation } = useContext(ActiveConversationContext)
 
 
     useEffect(() => {
@@ -321,7 +324,7 @@ function Contacts () {
                                                 <ContactPhoto src={profilePicture} alt="" />}
                                                 <ContactName>{pseudo}</ContactName>
                                             </Link>
-                                            <div style={{marginBottom:"30px"}}><LinkForMainButton to="/messages" style={{fontSize:"0.8em"}}>Envoyer un message</LinkForMainButton></div>
+                                            <div style={{marginBottom:"30px"}}><LinkForMainButton to="/messages" style={{fontSize:"0.8em"}} onClick={() => setActiveConversation(pseudo)}>Envoyer un message</LinkForMainButton></div>
                                             <InteractionFalseLink onClick={() => setAskingDeleteContact(pseudo)}>Supprimer le contact</InteractionFalseLink>
                                         </ItemWrapper>
                                     )}

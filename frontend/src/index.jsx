@@ -30,7 +30,7 @@ import NewProject from './pages/NewProject'
 
 
 // On importe les providers de nos contextes
-import { UserStatusProvider } from './utils/context';
+import { UserStatusProvider, ActiveConversationProvider } from './utils/context';
 
 
 
@@ -40,6 +40,7 @@ root.render(
   <React.StrictMode>
     <Router>
       <UserStatusProvider>
+        <ActiveConversationProvider>
           <Header/>
           <ScrollToTop/>
           <Routes>
@@ -62,6 +63,7 @@ root.render(
             <Route path="/new_project" element={<NewProject/>} />
             <Route path="*" element={<Error/>} />
           </Routes>
+        </ActiveConversationProvider>
       </UserStatusProvider>
     </Router>
   </React.StrictMode>

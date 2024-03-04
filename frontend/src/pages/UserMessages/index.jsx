@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 
 import messageIcon from '../../assets/message.png'
 // import profilePicture from '../../assets/profile-picture-big.png'
@@ -8,6 +8,7 @@ import { MainButton, SecondaryButton, LinkForMainButton, Loader } from '../../ut
 
 import { useToken } from '../../utils/hooks'
 import { formatDate, formatStringDate, fetchData } from '../../utils/tools'
+import { ActiveConversationContext } from '../../utils/context'
 
 import ProfileNav from '../../components/ProfileNav'
 import Message from '../../components/Message'
@@ -135,7 +136,8 @@ function Messages () {
     const [conversationsList, setConversationsList] = useState([])
     const [messagesList, setMessagesList] = useState([])
     // Current conversation
-    const [activeConversation, setActiveConversation] = useState("")
+    const { activeConversation, setActiveConversation } = useContext(ActiveConversationContext)
+    // const [activeConversation, setActiveConversation] = useState("")
     const [inputValue, setInputValue] = useState('')
     const [conversationsLoading, setConversationsLoading] = useState(false)
     const [messagesLoading, setMessagesLoading] = useState(false)
