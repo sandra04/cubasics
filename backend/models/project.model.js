@@ -39,7 +39,6 @@ Project.modify = (id, title, content, searchedProfiles, style, modificationDate,
 	
 	if (id){
 		let query = `UPDATE projects SET title="${title}", content="${content}", searched_profiles='${myProfiles}', style='${myStyle}', modification_date="${modificationDate}", image=${myImage}, audio=${myAudio} WHERE id=${id}`
-		console.log(query)
 		sql.query(query, (err, res) => {
 
 			if (err) {
@@ -47,8 +46,6 @@ Project.modify = (id, title, content, searchedProfiles, style, modificationDate,
 				result(err, null);
 				return;
 			}
-		
-			console.log("Modify project");
 			result(null, { message: "Projet modifié" });
     });
   }
@@ -56,7 +53,6 @@ Project.modify = (id, title, content, searchedProfiles, style, modificationDate,
 
 
 Project.modifyViews = (id, views, lastViewDate, result) => {
-
 	if (id){
 		let query = `UPDATE projects SET views=${views}, last_view_date="${lastViewDate}" WHERE id=${id}`
 		sql.query(query, (err, res) => {
@@ -65,8 +61,6 @@ Project.modifyViews = (id, views, lastViewDate, result) => {
 			result(err, null);
 			return;
 		}
-		
-		console.log("Add view");
 		result(null, { message: "New view added" });
 		});
 	}
@@ -82,8 +76,6 @@ Project.delete = (id, result) => {
         result(err, null);
         return;
       }
-    
-      console.log("Delete project");
       result(null, { message: "Projet supprimé" });
     });
   }
@@ -131,7 +123,6 @@ Project.findByUserPrivate = (userId, result) => {
 		res.forEach((project) => {
 			delete project.user_id
 		})
-		console.log("found Projects: ", res);
 		result(null, res);
 		return;
 	  }
@@ -153,7 +144,6 @@ Project.findByUserPrivate = (userId, result) => {
 		res.forEach((project) => {
 			delete project.user_id
 		})
-		console.log("found Projects: ", res);
 		result(null, res);
 		return;
 	  }
@@ -215,7 +205,6 @@ Project.findAll = (title, searchedProfiles, style, order, result) => {
 		query += ` ORDER BY p.views DESC`
 	}
 
-	console.log(query)
 	sql.query(query, (err, res) => {
 		if (err) {
 			console.log("error: ", err);
@@ -229,7 +218,6 @@ Project.findAll = (title, searchedProfiles, style, order, result) => {
 			})
 		}
 	  
-		console.log("projects: ", res);
 		result(null, res);
 
 	});
@@ -256,7 +244,6 @@ Project.findAllSearchedProfiles = (result) => {
       			}
     		})
 		})
-		console.log("found profiles: ", profiles);
 		result(null, profiles);
 		return;
 	  }
@@ -287,7 +274,6 @@ Project.findAllStyles = (result) => {
       			}
     		})
 		})
-		console.log("found styles: ", styles);
 		result(null, styles);
 		return;
 	  }

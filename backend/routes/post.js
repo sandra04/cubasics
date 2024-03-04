@@ -25,8 +25,6 @@ router.post('/get_commented_posts_by_user', auth, postCtrl.getCommentedPostsByUs
 router.post('/get_favorite_posts_by_user', auth, postCtrl.getFavoritePostsByUser)
 router.post('/categories', postCtrl.getAllCategories);
 router.post('/get_by_id', verify, postCtrl.getOnePost);
-// ":id" permet d'indiquer à Express que cette partie de la route est dynamique (envoyé par la partie frontend)
-// router.get('/:id', postCtrl.getOnePost);
 
 
 

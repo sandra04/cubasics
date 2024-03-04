@@ -22,11 +22,10 @@ exports.signup = (req, res, next) => {
   User.findByEmail(req.body.email, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
-        console.log("Email doesn't exist")
+
         User.findByPseudo(req.body.pseudo, null, (err, data) => {
           if (err) {
             if (err.kind === "not_found") {
-              console.log("Pseudo doesn't exist")
               // On crypte le mdp, on récupère celui indiqué dans le corps de la requête
               // Le 2ème argument est le "salt" (le nombre de fois où on exécute l'algo de hashage)
               // 10 suffit à faire un cryptage sécurisé, plus on augment le chiffre, plus ça va mettre du temps à s'exécuter
@@ -45,7 +44,6 @@ exports.signup = (req, res, next) => {
                     inscriptionDate: req.body.inscriptionDate,
                     photo: req.body.photo
                   });
-                  console.log(user)
                   // On enregistre l'utilisateur dans la BDD
                   User.create(user, (err, data) => {
                     if (err) {
@@ -65,7 +63,6 @@ exports.signup = (req, res, next) => {
         })
       }
       else {
-        console.log("erreur")
         res.status(500).send({
           message: "Error retrieving the email"
         });
@@ -245,11 +242,9 @@ exports.modifyPhoto = (req, res, next) => {
                   fs.writeFile(path.join(__dirname, fullPath), imageBuffer.data,
                     (err) => {
                       if (err) {
-                        console.log("Test erreur : ", err);
                         reject("")
                       }
                       else {
-                        console.log('DEBUG - feed:message: Image saved to disk :', fullPath);
                         photo = pathForDb;
                         resolve("")
                       }

@@ -15,9 +15,6 @@ Favorite.create = (newFavorite, result) => {
 		result(err, null);
 		return;
 	  }
-  
-	  console.log("Add to favorite");
-	  // result(null, { id: res.insertId, ...newFavorite });
     result(null, { message: "Favoris ajouté" });
 	});
 };
@@ -31,8 +28,6 @@ Favorite.delete = (postId, userId, result) => {
         result(err, null);
         return;
       }
-    
-      console.log("Delete favorite");
       result(null, { message: "Favoris supprimé" });
     });
   }
@@ -57,8 +52,6 @@ Favorite.findIsFavorite = (postId, userId, result) => {
       result({ kind: "not_found" }, false);
     });
   }
-  
-  // result(null, []);
 }
 
 

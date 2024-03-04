@@ -40,8 +40,6 @@ Comment.modify = (id, content, modificationDate, image, audio, result) => {
         result(err, null);
         return;
       }
-    
-      console.log("Modify comment");
       result(null, { message: "Commentaire modifié" });
     });
   }
@@ -56,8 +54,6 @@ Comment.delete = (id,result) => {
         result(err, null);
         return;
       }
-    
-      console.log("Delete comment");
       result(null, { message: "Commentaire supprimé" });
     });
   }
@@ -101,7 +97,6 @@ Comment.findCommentsByPost = (postId, userId, result) => {
           })
         }
       }
-      console.log("found comments: ", comments);
       result(null, comments);
       return;
 
@@ -120,7 +115,6 @@ Comment.findById = (id, result) => {
     }
     
     if (res.length) {
-      console.log("found comment: ", res[0]);
       result(null, res[0]);
       return;
     }

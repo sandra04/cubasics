@@ -11,7 +11,6 @@ const router = express.Router()
 router.post('/add', auth, favoriteCtrl.createFavorite);
 router.post('/get', auth, favoriteCtrl.postIsFavorite);
 router.post('/delete', auth, favoriteCtrl.deleteFavorite);
-// router.get('/', favoriteCtrl.getFavorites);
 
 
 

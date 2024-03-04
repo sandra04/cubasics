@@ -107,26 +107,3 @@ exports.getMessageImage = (req, res, next) => {
     ps.pipe(res)
 
 }
-
-    /***********Méthode 2 ******************/
- 
-    /*// Buffer image
-    const buffer = bufferFile(`../images/posts/${req.params["image"]}`);
-
-    function bufferFile(relPath) {
-        
-        return fs.readFileSync(path.join(__dirname, relPath), (err, data) => {
-            if (!err) {
-                console.log(data)
-            }
-            else {
-                console.log(err.message);
-                res.status(500).send({
-                    message: "Error while retrieving image"
-                });
-            }
-        });
-    }
-
-    console.log(buffer)
-    res.status(200).json(buffer);*/

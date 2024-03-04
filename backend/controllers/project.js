@@ -27,7 +27,6 @@ exports.createProject = (req, res, next) => {
     report: false,
     userId: req.auth.userId
   });
-  console.log(project)
 
   // Save project in the database
   Project.create(project, (err, data) => {
@@ -77,7 +76,6 @@ exports.modifyProject = (req, res, next) => {
         // Save modified project in the database
         Project.modify(id, title, content, searchedProfiles, style, modificationDate, image, audio, (err, data) => {
           if (err){
-            console.log("Erreur de modif : ", err.message)
             res.status(500).send({
               message:
                 err.message || "Some error occurred while modifying the project."
@@ -178,7 +176,6 @@ exports.getProjectsByUserPrivate = (req, res, next) => {
         res.status(200).json([]);
       }
       else{
-        console.log(err.message)
         res.status(500).send({
           message:
             err.message || "Some error occurred while retrieving projects."

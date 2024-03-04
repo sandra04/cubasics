@@ -19,15 +19,12 @@ Message.create = (newMessage, result) => {
 		result(err, null);
 		return;
 	  }
-  
-	  // console.log("created new message);
 	  result(null, { id: res.insertId, ...newMessage });
 	});
 };
 
 Message.modify = (id, content, image, modificationDate, result) => {
   const myImage = image !== null ? JSON.stringify(image) : null;
-
   if (id){
 		let query = `UPDATE messages SET content="${content}", image=${myImage}, modification_date="${modificationDate}" WHERE id=${id}`
 		sql.query(query, (err, res) => {
@@ -36,8 +33,6 @@ Message.modify = (id, content, image, modificationDate, result) => {
         result(err, null);
         return;
       }
-      
-      console.log("Update message");
       result(null, { message: "Message updated" });
 		});
 	}
@@ -52,8 +47,6 @@ Message.modifySeenMessage = (id, result) => {
         result(err, null);
         return;
       }
-      
-      console.log("Update message");
       result(null, { message: "Message updated" });
 		});
 	}
@@ -68,8 +61,6 @@ Message.delete = (id, result) => {
 			result(err, null);
 			return;
 		}
-		
-		console.log("Delete message");
 		result(null, { message: "Message supprimé" });
 		});
 	}

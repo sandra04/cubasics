@@ -18,8 +18,6 @@ router.post("/modify_presentation", auth, userCtrl.modifyPresentation);
 router.post("/delete", auth, userCtrl.deleteUser);
 router.post("/get", verify, userCtrl.getOneUser);
 router.post("/get_private", auth, userCtrl.getOneUserPrivate);
-// ":id" permet d'indiquer à Express que cette partie de la route est dynamique (envoyé par la partie frontend)
-// router.get('/:id', auth, userCtrl.getOneUser);
 router.post("/get_pseudo", userCtrl.searchingPseudo);
 
 

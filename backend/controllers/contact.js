@@ -47,7 +47,6 @@ exports.createContact = (req, res, next) => {
               });
             }
             else {
-              console.log("added")
               res.status(201).json({message: "New contact added"});
             }
           });
@@ -102,7 +101,6 @@ exports.modifyContact = (req, res, next) => {
 exports.deleteContact = (req, res, next) => {
   const userId = req.auth.userId;
   const pseudo = req.body.pseudo;
-  //const contactId = req.body.contactId
   
   Contact.findHasAsked(userId, pseudo, (err, data) => {
     if (err) {
@@ -138,7 +136,6 @@ exports.deleteContact = (req, res, next) => {
 
 exports.getUserContacts = (req, res, next) => {
     const userId = req.auth.userId;
-    // const contactStatus = req.body.contactStatus
 
     Contact.findUserContacts(userId, (err, data) => {
         if (err){
@@ -147,7 +144,6 @@ exports.getUserContacts = (req, res, next) => {
                 err.message || "Some error occurred while retrieving contacts."
             });
         }
-        console.log(data)
         res.status(200).json(data);
   });
 }
@@ -163,7 +159,6 @@ exports.getUserContactsToRespond = (req, res, next) => {
               err.message || "Some error occurred while retrieving contacts."
           });
       }
-      console.log("waiting : ", data)
       res.status(200).json(data);
 });
 }

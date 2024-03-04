@@ -23,7 +23,6 @@ Post.create = (newPost, result) => {
 		result(err, null);
 		return;
 	  }
-  
 	  result(null, { id: res.insertId, ...newPost });
 	});
 };
@@ -49,15 +48,12 @@ Post.modify = (id, title, content, category, modificationDate, image, audio, use
 				result(err, null);
 				return;
 			}
-			
-			console.log("Modify post");
 			result(null, { message: "Post modifié" });
 		});
 	}
 };
 
 Post.modifyViews = (id, views, lastViewDate, result) => {
-
 	if (id){
 		let query = `UPDATE posts SET views=${views}, last_view_date="${lastViewDate}" WHERE id=${id}`
 		sql.query(query, (err, res) => {
@@ -66,8 +62,6 @@ Post.modifyViews = (id, views, lastViewDate, result) => {
 			result(err, null);
 			return;
 		}
-		
-		console.log("Add view");
 		result(null, { message: "New view added" });
 		});
 	}
@@ -82,15 +76,12 @@ Post.delete = (id, result) => {
 			result(err, null);
 			return;
 		}
-		
-		console.log("Delete post");
 		result(null, { message: "Post supprimé" });
 		});
 	}
 };
 
 Post.findById = (id, userId, result) => {
-	
 	sql.query(`SELECT p.*, u.pseudo AS user, COUNT(DISTINCT c.id) AS comments, COUNT(DISTINCT f.id) AS favorites FROM posts p LEFT JOIN users u ON p.user_id = u.id LEFT JOIN comments c ON p.id = c.post_id LEFT JOIN favorites f ON p.id = f.post_id WHERE p.id = ${id} AND p.report = 0 GROUP BY p.id`, (err, res) => {
 	  if (err) {
 		console.log("error: ", err);
@@ -131,7 +122,6 @@ Post.findByUserPrivate = (userId, result) => {
 		res.forEach((post) => {
 			delete post.user_id
 		})
-		console.log("found Post: ", res);
 		result(null, res);
 		return;
 	  }
@@ -153,7 +143,6 @@ Post.findByUser = (pseudo, result) => {
 		res.forEach((post) => {
 			delete post.user_id
 		})
-		console.log("found Post: ", res);
 		result(null, res);
 		return;
 	  }
@@ -175,7 +164,6 @@ Post.findCommentedByUser = (userId, result) => {
 		res.forEach((post) => {
 			delete post.user_id
 		})
-		console.log("found Post: ", res);
 		result(null, res);
 		return;
 	  }
@@ -197,7 +185,6 @@ Post.findUserFavorites = (userId, result) => {
 		res.forEach((post) => {
 			delete post.user_id
 		})
-		console.log("found Post: ", res);
 		result(null, res);
 		return;
 	  }
@@ -220,7 +207,6 @@ Post.findMostRecent = (result) => {
 		res.forEach((post) => {
 			delete post.user_id
 		})
-		console.log("found Post: ", res);
 		result(null, res);
 		return;
 	  }
@@ -242,7 +228,6 @@ Post.findMostSeen = (result) => {
 		res.forEach((post) => {
 			delete post.user_id
 		})
-		console.log("found Post: ", res);
 		result(null, res);
 		return;
 	  }
@@ -281,7 +266,6 @@ Post.findAll = (title, category, order, result) => {
 		query += ` ORDER BY COUNT(c.id) DESC`
 	}
 
-	console.log(query)
 	sql.query(query, (err, res) => {
 		if (err) {
 			console.log("error: ", err);
@@ -293,7 +277,6 @@ Post.findAll = (title, category, order, result) => {
 				delete post.user_id
 			})
 		}
-		console.log("posts: ", res);
 		result(null, res);
 	});
 };
@@ -307,7 +290,6 @@ Post.findAllCategories = (result) => {
 	  }
   
 	  if (res.length) {
-		console.log("found categories: ", res);
 		result(null, res);
 		return;
 	  }

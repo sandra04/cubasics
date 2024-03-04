@@ -22,7 +22,6 @@ exports.createComment = (req, res, next) => {
     postId: req.body.postId,
     commentId: req.body.commentId ? req.body.commentId : null
   });
-  console.log(comment)
 
   // Save comment in the database
   Comment.create(comment, (err, data) => {
@@ -121,16 +120,14 @@ exports.getCommentsByPost = (req, res, next) => {
   
   const postId = req.body.postId;
   const userId = req.ver.userId;
-  console.log("Hello, user ", userId)
+
   Comment.findCommentsByPost(postId, userId, (err, data) => {
     if (err) {
-      console.log(err.message)
       res.status(500).send({
           message: "Error while retrieving comments"
       });    
     }
     else {
-      console.log("comments : ", data)
       res.status(200).json(data);
     }
   });

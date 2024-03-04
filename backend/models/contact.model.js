@@ -17,7 +17,6 @@ Contact.create = (newContact, result) => {
       return;
 	  }
   
-	  console.log("New friend request created");
 	  result(null, { id: res.insertId, ...newContact });
 	});
 };
@@ -32,7 +31,6 @@ Contact.modifyStatus = (id, contactId, contactStatus, acceptationDate, result) =
         return;
       }
       
-      console.log("Update contact");
       result(null, { message: "Contact updated" });
 		});
 	}
@@ -48,7 +46,6 @@ Contact.delete = (id, contactId, result) => {
 			return;
 		}
 		
-		console.log("Delete contact");
 		result(null, { message: "Contact supprimé" });
 		});
 	}
@@ -59,7 +56,7 @@ Contact.findUserContacts = (userId, result) => {
   let query = `SELECT c.*, u.pseudo FROM contacts c RIGHT JOIN users u ON (u.id = c.user_id_asking OR u.id = c.user_id_answering) WHERE (c.user_id_asking=${userId} OR c.user_id_answering=${userId}) AND c.contact_status="authorized" AND u.id !=${userId}`;
   //let query = `SELECT * FROM contacts WHERE (user_id_asking=${userId} OR user_id_answering=${userId}) AND contact_status="authorized"`;
   /*if (contact_status){
-    query += ` AND contact_status="authorized"`
+    query += ` AND contact_status=${contact_status}`
   }*/
   sql.query(query, (err, res) => {
     if (err) {
@@ -81,7 +78,6 @@ Contact.findUserContacts = (userId, result) => {
 
 
 Contact.findIsContact = (id, pseudo, result) => {
-  //let query = `SELECT * FROM contacts WHERE (user_id_asking=${id} OR user_id_answering=${id}) AND (user_id_asking=${contact_id} OR user_id_answering=${contact_id}) AND contact_status="authorized"`
   let query = `SELECT c.id, c.acceptation_date, u.pseudo FROM contacts c RIGHT JOIN users u ON u.id = c.user_id_asking OR u.id = c.user_id_answering WHERE (c.user_id_asking = ${id} OR c.user_id_answering = ${id}) AND u.pseudo = "${pseudo}" AND c.contact_status = "authorized" GROUP BY c.id`
   sql.query(query, (err, res) => {
     if (err) {

@@ -17,13 +17,12 @@ module.exports = (req, res, next) => {
 		// (les routes qui sont à protéger car actions gérées par un utilisateur en particulier)
 		req.auth = {
 			userId: userId
-		};
+		}
 		
 		// ?? }
 		next();
 	}
 	catch(error) {
-		console.log(error.message)
 		res.status(401).json({ message : error.message });
 	}
 };

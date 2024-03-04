@@ -50,21 +50,15 @@ exports.postIsFavorite = (req, res, next) => {
   Favorite.findIsFavorite(postId, userId, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
-            console.log("Not favorite")
             res.status(200).json({isFavorite: false})
-            /*res.status(404).send({
-                message: "Not found"
-            });*/
         }
         else {
-          console.log(err.message)
             res.status(500).send({
                 message: "Error while retrieving favorites"
             });
         }
       }
       else {
-        console.log("Favorite")
         res.status(200).json({isFavorite: true});
       }
   });

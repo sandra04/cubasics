@@ -21,7 +21,6 @@ User.create = (newUser, result) => {
 		result(err, null);
 		return;
 	  }
-      console.log("create new user");
 	  result(null, { id: res.insertId, ...newUser });
 	});
 };
@@ -35,7 +34,6 @@ User.modifyUserPassword = (id, password, result) => {
 			result(err, null);
 			return;
 		}
-		console.log("Password modified");
 		result(null, { message: "Password modified" });
 		});
 	}
@@ -50,7 +48,6 @@ User.modifyUserPhoto = (id, photo, result) => {
 			result(err, null);
 			return;
 		}
-		console.log("Photo modified");
 		result(null, { message: "Photo modified" });
 		});
 	}
@@ -65,7 +62,6 @@ User.modifyUserPresentation = (id, presentation, result) => {
 			result(err, null);
 			return;
 		}
-		console.log("Presentation modified");
 		result(null, { message: "Presentation modified" });
 		});
 	}
@@ -80,8 +76,6 @@ User.delete = (id, result) => {
 			result(err, null);
 			return;
 		}
-		
-		console.log("Delete user");
 		result(null, { message: "Utilisateur supprimé" });
 		});
 	}
@@ -95,7 +89,6 @@ User.findByEmail = (email, result) => {
 		return;
 	  }
 	  if (res.length) {
-		console.log(res[0])
 		result(null, res[0]);
 		return;
 	  }
@@ -123,7 +116,6 @@ User.findByPseudo = (pseudo, userId, result) => {
 				res[0] = {...userToSend}
 			}	
 		}
-		console.log(res[0])
 		result(null, res[0]);
 		return;
 	  }
@@ -145,8 +137,6 @@ User.findById = (id, result) => {
 		result(null, res[0]);
 		return;
 	  }
-	  // not found
-	  // result({ kind: "not_found" }, null);
 	});
 };
   
@@ -161,8 +151,6 @@ User.findByIdForPasswordVerification = (id, result) => {
 		result(null, res[0]);
 		return;
 	  }
-	  // not found
-	  // result({ kind: "not_found" }, null);
 	});
 };
 

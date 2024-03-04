@@ -4,8 +4,6 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config()
 
-// const path = require('path');
-
 const postRouter = require('./routes/post')
 const projectRouter = require('./routes/project')
 const commentRouter = require('./routes/comment')
@@ -45,17 +43,6 @@ app.use((req, res, next) => {
 });
 
 
-/*const db = require("./models");
-db.sequelize.sync()
-  .then(() => {
-    console.log("Synced db.");
-  })
-  .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
-  });*/
-
-
-
 app.get("/", (req, res) => {
 	res.json({ message: "Bienvenue sur l'API de Cubasics !" });
 });
@@ -70,47 +57,7 @@ app.use('/api/message', messageRouter)
 app.use('/api/contact', contactRouter)
 app.use('/api/images', imageRouter)
 
-// On utilise le middleware "static" fourni par Express pour servir des fichiers statiques
-// On gère en statique nos ressources images (dans un sous-répertoire de notre répertoire de base "__dirname")
-// path = chemin absolu du répertoire qu'on veut servir
-// On indique donc qu'à chaque requête sur la route "/images", on agit sur l'image concernée en statique avec le dossier "images"
-// app.use("/images", express.static(path.join(__dirname, "images")));
 
-
-/* Exemple de Middleware
-// Permet à l'appli Express de répondre lorsqu'une requête est reçue par le serveur
-app.use((req, res, next) => {
-	// Envoie une réponse en json
-	res.json({ message: 'Votre requête a bien été reçue !' });
-	// res.status(201); ajouterait un code d'état à la réponse
-	// La fonction permet de passer la requête au middleware suivant s'il y a d'autres middlewares après celui-ci dans le code de l'appli
-	next();
-});*/
-
-
-/* Gestion erreurs
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-	next(createError(404))
-})
-
-// error handler
-app.use(function (err, req, res, next) {
-	// set locals, only providing error in development
-	res.locals.message = err.message
-	res.locals.error = req.app.get('env') === 'development' ? err : {}
-
-	// render the error page
-	res.status(err.status || 500)
-	res.render('error')
-})
-*/
-
-
-/* If you want to  drop existing tables and re-sync database
-db.sequelize.sync({ force: true }).then(() => {
-	console.log("Drop and re-sync db.");
-}); */
 
 // On exporte notre appli Express pour pouvoir y faire appel depuis d'autres fichiers (notamment notre serveur Node)
 module.exports = app;

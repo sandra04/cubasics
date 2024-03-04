@@ -182,25 +182,7 @@ exports.deleteMessage = (req, res, next) => {
 };
 
 
-/*exports.getMessagesByUser = (req, res, next) => {
-  
-  const userId = req.auth.userId;
-  
-  Message.findByUser(userId, (err, data) => {
-    if (err){
-      res.status(500).send({
-          message:
-          err.message || "Some error occurred while retrieving messages."
-      });
-    }
-    console.log(data)
-    res.status(200).json(data);
-  });
-};*/
-
-
 exports.getConversations = (req, res, next) => {
-  console.log("Waiting for fetch")
   const userId = req.auth.userId;
   
   Message.findAllConversations(userId, (err, data) => {
@@ -210,7 +192,6 @@ exports.getConversations = (req, res, next) => {
           err.message || "Some error occurred while retrieving messages."
       });
     }
-    //console.log(data)
     res.status(200).json(data);
   });
 };
@@ -235,7 +216,6 @@ exports.getMessagesByContact = (req, res, next) => {
               err.message || "Some error occurred while retrieving messages."
           });
         }
-        //console.log(data)
         res.status(200).json(data);
       });
     }
@@ -254,7 +234,6 @@ exports.getNotSeenNumber = (req, res, next) => {
           err.message || "Some error occurred while retrieving messages."
       });
     }
-    console.log(data)
     res.status(200).json(data);
   });
 };

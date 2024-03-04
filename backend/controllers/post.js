@@ -30,7 +30,6 @@ exports.createPost = async (req, res, next) => {
       report: false,
       userId: req.auth.userId
     });
-    console.log(post)
 
     // Save post in the database
     Post.create(post, (err, data) => {
@@ -95,11 +94,9 @@ exports.createPost = async (req, res, next) => {
                   fs.writeFile(path.join(__dirname, fullPath), imageBuffer.data,
                     (err) => {
                       if (err) {
-                        console.log("Test erreur : ", err);
                         reject("")
                       }
                       else {
-                        console.log('DEBUG - feed:message: Image saved to disk :', fullPath);
                         images.push(pathForDb);
                         resolve("")
                       }
@@ -189,7 +186,6 @@ exports.modifyPost = (req, res, next) => {
               
               if (oldPostImage && oldPostImage.length > 0){
                 const imageToDelete = oldPostImage.filter((image) => !(req.body.oldImage.includes(image)))
-                console.log("Delete : ", imageToDelete)
               
                 if (imageToDelete.length > 0){
                   imageToDelete.forEach(async (imagePath) => {
@@ -267,11 +263,9 @@ exports.modifyPost = (req, res, next) => {
                         fs.writeFile(path.join(__dirname, fullPath), imageBuffer.data,
                           (err) => {
                             if (err) {
-                              console.log("Test erreur : ", err);
                               reject("")
                             }
                             else {
-                              console.log('DEBUG - feed:message: Image saved to disk :', fullPath);
                               images.push(pathForDb);
                               resolve("")
                             }
