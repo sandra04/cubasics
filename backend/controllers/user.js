@@ -371,17 +371,3 @@ exports.searchingPseudo = (req, res, next) => {
     } else res.status(200).json(data);
   });
 }
-
-/*exports.searchingEmailIsUnique = (req, res, next) => {
-  User.findByEmail(req.body.email, (err, data) => {
-    if (err) {
-      if (err.kind === "not_found") {
-        res.status(200)
-      } else {
-        res.status(500).send({
-          message: "Error retrieving the email"
-        });
-      }
-    } else res.status(401);
-  });
-};*/

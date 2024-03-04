@@ -41,7 +41,6 @@ function Card({ title, category, date, content, views, comments, favorites, user
       <PostContent>
           {formattedContent.map((phrase, index) => <p key={index}>{phrase}</p>)}
       </PostContent>
-      {/*{content}.slice(0,200) */}
       <p style={ {marginBottom:"40px"} }>...</p>
       <PostInteractions>
           <PopularityInfos popularityType="views" popularityValue={views} />

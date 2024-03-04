@@ -44,7 +44,7 @@ exports.createPost = async (req, res, next) => {
 
   if (req.body.image) {
     let i = 0;
-    // const prepareImage = async () => {
+
       for (let currentImage of req.body.image) {
         const base64Data = currentImage
       
@@ -114,10 +114,7 @@ exports.createPost = async (req, res, next) => {
         }
         i++;
       }
-    //}
-    //prepareImage()
-  //}
-  // postToDatabase()
+
     if (i === req.body.image.length){
       postToDatabase()
     }  
@@ -208,10 +205,7 @@ exports.modifyPost = (req, res, next) => {
 
         if (req.body.newImage) {
           let i = 0;
-          /* const prepareImage = () => {
-            for (let i = 0; i < req.body.newImage.length; i++) {
-              const base64Data = req.body.newImage[i]*/
-          //const prepareImage = async () => {
+
             for (let currentImage of req.body.newImage) {
               const base64Data = currentImage
 
@@ -283,10 +277,6 @@ exports.modifyPost = (req, res, next) => {
               }
               i++;
             }
-          //}
-          // await prepareImage()
-        /*}
-        postToDatabase()*/
           if (i === req.body.newImage.length){
             postToDatabase()
           } 

@@ -392,9 +392,7 @@ function Profile () {
                 <ProfileHeader>
                     <div>
                         {photo ? <div className="profile-photo" style={{backgroundImage:`url(http://localhost:3000/api/${photo})`}}></div>
-                        /*<ProfilePicture src={`http://localhost:3000/api/${photo}`} alt={`${pseudo} profile`}/>*/:
-                        <div className="profile-photo" style={{backgroundImage:`url(${profilePicture})`}}></div>
-                        /*<ProfilePicture src={profilePicture} alt={`${pseudo} profile`} onClick={() => setModifyingPhoto(true)}/>*/}
+                        : <div className="profile-photo" style={{backgroundImage:`url(${profilePicture})`}}></div>}
                     </div>
                     <ProfileInfos>
                         <h1 style={{ fontSize:"2em", marginBottom:"40px" }}>{pseudo}</h1>

@@ -66,25 +66,6 @@ Message.delete = (id, result) => {
 	}
 };
 
-/*Message.findByUser = (userId, result) => {
-  sql.query(`SELECT m.*, u.pseudo FROM messages m RIGHT JOIN users u ON (u.id = m.user_id_sender OR u.id = m.user_id_receiver) WHERE (m.user_id_sender = ${userId} OR m.user_id_receiver = ${userId}) AND u.id !=${userId}`, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err,null);
-      return;
-    }
-      
-    if (res.length){
-			delete res.user_id_sender;
-      delete res.user_id_receiver;
-		}
-
-    result(null, res);
-    return;
-  });
-};*/
-
-// SELECT u.pseudo, u.photo, MAX(m.creation_date) as creation_date, m.user_id_sender, m.user_id_receiver FROM messages m RIGHT JOIN users u ON (u.id = m.user_id_sender OR u.id = m.user_id_receiver) WHERE (m.user_id_sender = ${userId} OR m.user_id_receiver = ${userId}) AND u.id != ${userId} GROUP BY u.id ORDER BY m.creation_date DESC
 Message.findAllConversations = (userId, result) => {
   sql.query(`SELECT u.pseudo, u.photo, m.creation_date, m.user_id_sender, m.user_id_receiver FROM messages m RIGHT JOIN users u ON (u.id = m.user_id_sender OR u.id = m.user_id_receiver) WHERE (m.user_id_sender = ${userId} OR m.user_id_receiver = ${userId}) AND u.id != ${userId} ORDER BY m.creation_date DESC`, (err, res) => {
     if (err) {

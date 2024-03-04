@@ -1,8 +1,8 @@
-/node_modules
-/images/comments
-/images/messages
-/images/posts
-/images/projects
-/images/users
-
 .env
+
+/node_modules/
+/images/comments/
+/images/messages/
+/images/posts/
+/images/projects/
+/images/users/

@@ -51,13 +51,8 @@ Contact.delete = (id, contactId, result) => {
 	}
 };
 
-// Contact.findUserContacts = (user_id, contact_status, result) => {
 Contact.findUserContacts = (userId, result) => {
   let query = `SELECT c.*, u.pseudo FROM contacts c RIGHT JOIN users u ON (u.id = c.user_id_asking OR u.id = c.user_id_answering) WHERE (c.user_id_asking=${userId} OR c.user_id_answering=${userId}) AND c.contact_status="authorized" AND u.id !=${userId}`;
-  //let query = `SELECT * FROM contacts WHERE (user_id_asking=${userId} OR user_id_answering=${userId}) AND contact_status="authorized"`;
-  /*if (contact_status){
-    query += ` AND contact_status=${contact_status}`
-  }*/
   sql.query(query, (err, res) => {
     if (err) {
       console.log("error: ", err);

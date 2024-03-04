@@ -74,7 +74,7 @@ function FormModifyPhoto({ photo, modifyingPhoto, setModifyingPhoto }){
         const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
         const isImage = selectedFile ? validateIsGoodFormat(selectedFile, allowedTypes) : null
         const imageIsGoodSize = selectedFile ? validateIsGoodSize(selectedFile, 4) : null
-        // setImageInput([])
+
         if (isImage){
             setImageBadFormat(false)
             if (imageIsGoodSize){

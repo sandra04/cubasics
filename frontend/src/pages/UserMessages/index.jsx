@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { useState, useEffect, useRef, useContext } from 'react'
 
 import messageIcon from '../../assets/message.png'
-// import profilePicture from '../../assets/profile-picture-big.png'
 import { MainButton, SecondaryButton, LinkForMainButton, Loader } from '../../utils/styles/Atoms'
 
 import { useToken } from '../../utils/hooks'
@@ -65,9 +64,6 @@ const ProfileMain = styled.section`
         width: calc(100% - 380px);
     }
 `
-/*@media (max-width:1023px){
-    display:none;
-}*/
 
 const MessagesContainer = styled.div`
   width:90%;
@@ -137,7 +133,6 @@ function Messages () {
     const [messagesList, setMessagesList] = useState([])
     // Current conversation
     const { activeConversation, setActiveConversation } = useContext(ActiveConversationContext)
-    // const [activeConversation, setActiveConversation] = useState("")
     const [inputValue, setInputValue] = useState('')
     const [conversationsLoading, setConversationsLoading] = useState(false)
     const [messagesLoading, setMessagesLoading] = useState(false)
@@ -165,12 +160,6 @@ function Messages () {
 
 
     function selectConversation(selectedConversation){
-        /*const conversations = document.getElementsByClassName("conversation-item")
-        
-        Object.values(conversations).forEach((element) => {
-            element.classList.remove("active-conversation")
-        })
-        document.getElementById(selectedConversation).classList.add('active-conversation')*/
         conversationsList.forEach((conversation) => {
             if (conversation.pseudo === selectedConversation) {
                 conversation.isActive = true
@@ -353,7 +342,6 @@ function Messages () {
             setSelectedContact("")
             setActiveConversation(pseudo)
             setMessageSent(true)
-            // fetchMessages(pseudo)
         }
         // Network error
         catch(err){

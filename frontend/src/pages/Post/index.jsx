@@ -239,22 +239,15 @@ function Post() {
                 },
                 data: data
             }
-            //let commentsToModify = []
+
             let commentsToModify = [...result.data]
            commentsToModify.forEach((comment) => {
                 comment.creation_date = formatStringDate(comment.creation_date)
                 if (comment.modification_date) {
                     comment.modification_date = formatStringDate(comment.modification_date)
                 }
-                /*comment.content.includes("\r\n") ? comment.content.split("\r\n") : comment.content.split("\n")
-                if (typeof comment.content === "string"){
-                    const text = comment.content
-                    comment.content = [text]
-                }
-                commentsToModify.push(comment)*/
             })
             
-            // setCommentsList(result.data)
             setCommentsList(commentsToModify)
   
         }
@@ -583,7 +576,6 @@ function Post() {
   
     let formattedContent = content?.split("\r\n")
     formattedContent = content?.split("\n")
-    //const finalFormattedContent = formattedContent?.filter((sentence) => sentence !== "")
     
 
     if(!token && (needConnexion === true)){
@@ -659,7 +651,6 @@ function Post() {
                                         <PostContent key={comment.id}>
                                             <PostAuthor>Réponse par <Link to={`/profile/${comment.user}`}>{comment.user}</Link>, le {comment.creation_date}</PostAuthor>
                                             {comment.modification_date && <PostAuthor style={{marginTop:"-30px"}}>(Modifié le {comment.modification_date})</PostAuthor>}
-                                            {/*comment.content.map((sentence) => <p>{sentence}</p>)*/}
                                             <p>{comment.content}</p>
                                             {!comment.isAuthor &&
                                                 <div style={{marginTop:"20px",fontSize:"0.8em"}}>

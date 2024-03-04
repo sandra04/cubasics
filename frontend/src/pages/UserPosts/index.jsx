@@ -109,8 +109,6 @@ function UserPosts () {
                 data: data
             }
 
-            // const result = await fetchResult(res)
-
             let postsToModify = [...result.data]
             if (result.data.length > 0){
                 postsToModify.forEach((post) => {

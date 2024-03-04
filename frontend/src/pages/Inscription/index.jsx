@@ -30,8 +30,6 @@ function Inscription() {
     const [firstnameInput, setFirstnameInput] = useState("")
     const [birthdateInput, setBirthdateInput] = useState("")
     const [pseudoInput, setPseudoInput] = useState("")
-    // const [emailInput, setEmailInput] = useState("")
-    // const [passwordInput, setPasswordInput] = useState("")
 
     const [isAdult, setIsAdult] = useState(true)
     const [pseudoError, setPseudoError] = useState(false)
@@ -188,12 +186,6 @@ function Inscription() {
     function checkEmail(){
         const emailInputValue = document.getElementById("email").value
         setEmailError(!emailInputValue.includes("@"))
-        /*if(!emailError){
-            setEmailInput(emailInputValue)
-        }
-        else{
-            setEmailInput("")
-        }*/
     }
     function emailCheckIsFirst(){
         if (emailIsFirstWritting) {
@@ -205,12 +197,6 @@ function Inscription() {
         const passwordInputValue = document.getElementById("password").value
         const isSecurized = checkIsSecurized(passwordInputValue)
         setPasswordError(!isSecurized)
-        /*if(!passwordError){
-            setPasswordInput(passwordInputValue)
-        }
-        else{
-            setPasswordInput("")
-        }*/
     }
 
     function checkFields(e){
