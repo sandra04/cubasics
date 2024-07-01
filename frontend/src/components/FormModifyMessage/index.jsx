@@ -34,7 +34,7 @@ function FormModifyMessage({ id, content, image, setModifyingMessage }){
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/message/modify`, messageData, "identified")
+            const res = await fetchData(`/api/message/modify`, messageData, "identified")
         
             // http error
             if (!res.ok) {

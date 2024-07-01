@@ -76,7 +76,7 @@ function Project() {
         }
 
         try{
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/get_by_id`, projectData, "identified")
+            const res = await fetchData(`/api/project/get_by_id`, projectData, "identified")
 
             if (!res.ok) {
                 const message = `An error has occured: ${res.status} - ${res.statusText}`;
@@ -119,7 +119,7 @@ function Project() {
         }
     
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/delete`, projectData, "identified")
+            const res = await fetchData(`/api/project/delete`, projectData, "identified")
         
             // http error
             if (!res.ok) {
@@ -159,7 +159,7 @@ function Project() {
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/add_view`, projectData, null)
+            const res = await fetchData(`/api/project/add_view`, projectData, null)
         
             // http error
             if (!res.ok) {
@@ -288,7 +288,7 @@ function Project() {
                             {modifiedDate && <ProjectAuthor style={{marginTop:"-30px"}}>(Modifié le {modifiedDate})</ProjectAuthor>}
                             {formattedContent?.map((sentence, index) => <p key={index}>{sentence}</p>)}
                             {image && <div style={{display:"flex", flewWrap:"wrap", width:"100%", justifyContent:"space-between"}}>
-                                    {JSON.parse(image).map((currentImage, index) => <img key={index} src={`http://localhost:3000/api/${currentImage}`} alt="" style={{width:"100%", maxWidth:"400px", marginBottom:"30px"}}/>)}
+                                    {JSON.parse(image).map((currentImage, index) => <img key={index} src={`/api/${currentImage}`} alt="" style={{width:"100%", maxWidth:"400px", marginBottom:"30px"}}/>)}
                                 </div>}
                             {isAuthor &&
                                 <div style={{ display:"flex", marginTop:"30px", alignItems:"center", flexWrap:"wrap"}}>

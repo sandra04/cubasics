@@ -39,7 +39,7 @@ function Message({ id, content, image, date, modifiedDate, seen, user, isSender,
                 <MessageContent className="sender-content">
                     {formattedContent.map((phrase, index) => <p key={index}>{phrase}</p>)}
                     {image && <div style={{display:"flex", flewWrap:"wrap", width:"100%", justifyContent:"space-between"}}>
-                            {JSON.parse(image).map((currentImage, index) => <img key={index} src={`http://localhost:3000/api/${currentImage}`} alt="" style={{width:"100%", maxWidth:"400px", marginBottom:"30px"}}/>)}
+                            {JSON.parse(image).map((currentImage, index) => <img key={index} src={`/api/${currentImage}`} alt="" style={{width:"100%", maxWidth:"400px", marginBottom:"30px"}}/>)}
                         </div>}
                         {isSender &&
                             <div style={ {display:"flex", flexWrap:"wrap", marginTop:"30px"} }>

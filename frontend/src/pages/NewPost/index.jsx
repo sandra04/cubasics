@@ -94,7 +94,7 @@ function NewPost() {
         }
           
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/create_new_post`, postData, "identified")
+            const res = await fetchData(`/api/post/create_new_post`, postData, "identified")
         
             // http error
             if (!res.ok) {

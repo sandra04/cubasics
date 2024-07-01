@@ -77,7 +77,7 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
         }
         
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/modify`, postData, "identified")
+            const res = await fetchData(`/api/post/modify`, postData, "identified")
            
             // http error
             if (!res.ok) {
@@ -159,7 +159,7 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
     }
 
     function postImageDelete(e){
-        let image = e.target.src.split("http://localhost:3000/api/").pop()
+        let image = e.target.src.split("/api/").pop()
         image = "./" + image
         const filteredImages = postImage.filter((currentImage) => currentImage !== image)
         setPostImage([...filteredImages])
@@ -253,7 +253,7 @@ function FormModifyPost({ id, title, category, content, image, audio, setModifyi
                     {imageTooBig && <p style={{color:"red"}}>Votre image est trop grande. Merci d'importer une image avec une taille inférieure à 4 Mo.</p>}
                     <input type="file" id="post-image" name="post-image" accept="image/png, image/jpeg, image/jpg" onChange={handleImage}/>
                     <div id="preview"></div>
-                    {postImage.length > 0 && postImage.map((currentImage) => <img className="previous-post-image" src={`http://localhost:3000/api/${currentImage}`} alt="" onClick={postImageDelete}/>)}
+                    {postImage.length > 0 && postImage.map((currentImage) => <img className="previous-post-image" src={`/api/${currentImage}`} alt="" onClick={postImageDelete}/>)}
                     {imageInput.length > 0 && imageInput.map((currentImage) => <img src={currentImage} alt="" onClick={inputImageDelete}/>)}
                 </div>
                 <div>

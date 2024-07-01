@@ -178,7 +178,7 @@ function Projects() {
   async function fetchProfiles() {
 
     try {
-      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/profiles`, {}, null)
+      const res = await fetchData(`/api/project/profiles`, {}, null)
     
       // http error
       if (!res.ok) {
@@ -210,7 +210,7 @@ function Projects() {
   async function fetchStyles() {
 
     try {
-      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/styles`, {}, null)
+      const res = await fetchData(`/api/project/styles`, {}, null)
        
       // http error
       if (!res.ok) {
@@ -251,7 +251,7 @@ function Projects() {
     }
 
     try {
-      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/get`, filterData, null)
+      const res = await fetchData(`/api/project/get`, filterData, null)
     
       // http error
       if (!res.ok) {

@@ -84,7 +84,7 @@ function Home() {
     setDataRecentLoading(true)
 
     try {
-      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_most_recent`, {}, null)
+      const res = await fetchData(`/api/post/get_most_recent`, {}, null)
     
       // http error
       if (!res.ok) {
@@ -124,7 +124,7 @@ function Home() {
     setDataSeenLoading(true)
 
     try {
-      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_most_seen`, {}, null)
+      const res = await fetchData(`/api/post/get_most_seen`, {}, null)
     
       // http error
       if (!res.ok) {

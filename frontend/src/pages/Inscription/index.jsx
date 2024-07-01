@@ -67,7 +67,7 @@ function Inscription() {
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/signup`, userData, null)
+            const res = await fetchData(`/api/user/signup`, userData, null)
         
             // http error
             if (!res.ok) {
@@ -103,7 +103,7 @@ function Inscription() {
         }
           
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/get_pseudo`, userData, null)
+            const res = await fetchData(`/api/user/get_pseudo`, userData, null)
 
             // http error
             if (!res.ok) {

@@ -113,7 +113,7 @@ function FormModifyProject({ id, title, searchedProfiles, style, content, image,
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/modify`, projectData, "identified")
+            const res = await fetchData(`/api/project/modify`, projectData, "identified")
         
             // http error
             if (!res.ok) {

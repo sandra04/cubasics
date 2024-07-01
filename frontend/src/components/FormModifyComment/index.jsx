@@ -48,7 +48,7 @@ function FormModifyComment({ id, content, modifyingComment, setModifyingComment 
         }
           
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/comment/modify`, commentData, "identified")
+            const res = await fetchData(`/api/comment/modify`, commentData, "identified")
         
             // http error
             if (!res.ok) {

@@ -85,7 +85,7 @@ function UserComments () {
         
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_commented_posts_by_user`, {}, "identified")
+            const res = await fetchData(`/api/post/get_commented_posts_by_user`, {}, "identified")
         
             // http error
             if (!res.ok) {

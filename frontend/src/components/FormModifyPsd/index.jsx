@@ -29,7 +29,7 @@ function FormModifyPsd({modifyingPsd, setModifyingPsd}){
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/modify_psd`, userData, "identified")
+            const res = await fetchData(`/api/user/modify_psd`, userData, "identified")
         
             // http error
             if (!res.ok) {

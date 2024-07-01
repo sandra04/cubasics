@@ -126,7 +126,7 @@ function NewProject() {
         }
           
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/create_new_project`, projectData, "identified")
+            const res = await fetchData(`/api/project/create_new_project`, projectData, "identified")
         
             // http error
             if (!res.ok) {

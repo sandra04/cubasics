@@ -85,7 +85,7 @@ function UserPosts () {
         setDataLoading(true)
         
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_by_user_private`, {}, "identified")
+            const res = await fetchData(`/api/post/get_by_user_private`, {}, "identified")
         
             // http error
             if (!res.ok) {

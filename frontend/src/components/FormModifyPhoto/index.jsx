@@ -29,7 +29,7 @@ function FormModifyPhoto({ photo, modifyingPhoto, setModifyingPhoto }){
          }
         
          try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/modify_photo`, userData, "identified")
+            const res = await fetchData(`/api/user/modify_photo`, userData, "identified")
          
             // http error
             if (!res.ok) {
@@ -133,7 +133,7 @@ function FormModifyPhoto({ photo, modifyingPhoto, setModifyingPhoto }){
                     {imageTooBig && <p style={{color:"red"}}>Votre image est trop grande. Merci d'importer une image avec une taille inférieure à 4 Mo.</p>}
                     <input type="file" id="profile-photo" name="profile-photo" accept="image/png, image/jpeg, image/jpg" onChange={handleImage}/>
                     <div id="preview"></div>
-                    {profilePhoto && <img className="previous-photo" src={`http://localhost:3000/api/${profilePhoto}`} alt="" onClick={profilePhotoDelete}/>}
+                    {profilePhoto && <img className="previous-photo" src={`/api/${profilePhoto}`} alt="" onClick={profilePhotoDelete}/>}
                     {photoInput && <img src={photoInput} alt="" onClick={inputPhotoDelete}/>}
                 </div>
                 <div>

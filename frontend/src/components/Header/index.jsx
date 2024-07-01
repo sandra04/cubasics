@@ -118,7 +118,7 @@ function Header() {
     setDataLoading(true)
     
     try {
-      const res = await fetch("http://localhost:3000/api/message/get_unseen", {
+      const res = await fetch("/api/message/get_unseen", {
           method: "post",
           headers: {
               'Content-Type': 'application/json',

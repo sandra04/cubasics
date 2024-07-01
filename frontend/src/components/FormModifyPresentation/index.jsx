@@ -35,7 +35,7 @@ function FormModifyPresentation({ presentation, modifyingPresentation, setModify
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/modify_presentation`, userData, "identified")
+            const res = await fetchData(`/api/user/modify_presentation`, userData, "identified")
            
             // http error
             if (!res.ok) {

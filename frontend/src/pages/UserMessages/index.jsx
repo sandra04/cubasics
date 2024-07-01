@@ -191,7 +191,7 @@ function Messages () {
         
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/message/get_conversations`, {}, "identified")
+            const res = await fetchData(`/api/message/get_conversations`, {}, "identified")
             
             // http error
             if (!res.ok) {
@@ -263,7 +263,7 @@ function Messages () {
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/message/get_messages_from_contact`, contactData, "identified")
+            const res = await fetchData(`/api/message/get_messages_from_contact`, contactData, "identified")
         
             // http error
             if (!res.ok) {
@@ -328,7 +328,7 @@ function Messages () {
         }
           
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/message/new_message`, messageData, "identified")
+            const res = await fetchData(`/api/message/new_message`, messageData, "identified")
         
             // http error
             if (!res.ok) {
@@ -372,7 +372,7 @@ function Messages () {
         }
           
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/message/modify_seen`, messageData, "identified")
+            const res = await fetchData(`/api/message/modify_seen`, messageData, "identified")
         
             // http error
             if (!res.ok) {
@@ -403,7 +403,7 @@ function Messages () {
             }
         
             try {
-                const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/message/delete`, messageData, "identified")
+                const res = await fetchData(`/api/message/delete`, messageData, "identified")
             
                 // http error
                 if (!res.ok) {
@@ -441,7 +441,7 @@ function Messages () {
         setContactsLoading(true)
         
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/get_contacts`, {}, "identified")
+            const res = await fetchData(`/api/contact/get_contacts`, {}, "identified")
             
             // http error
             if (!res.ok) {
@@ -559,7 +559,7 @@ function Messages () {
                         (<div>
                             { contactsAvailable?.length > 0 ?    
                                 <ContactsAvailableContainer>
-                                    {contactsAvailable.map(({id, pseudo, acceptation_date, photo}) => 
+                                    {contactsAvailable.map(({id, pseudo}) => 
                                         <ContactAvailable key={id} onClick={() => selectContactForNewMessage(pseudo)}>
                                             <ContactName>{pseudo}</ContactName> 
                                         </ContactAvailable>

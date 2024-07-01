@@ -110,7 +110,7 @@ function Profile () {
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/get`, userData, "identified")
+            const res = await fetchData(`/api/user/get`, userData, "identified")
            
             // http error
             if (!res.ok) {
@@ -151,7 +151,7 @@ function Profile () {
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/search_contact`, userData, "identified")
+            const res = await fetchData(`/api/contact/search_contact`, userData, "identified")
         
             // http error
             if (!res.ok) {
@@ -194,7 +194,7 @@ function Profile () {
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_by_user`, userData, null)
+            const res = await fetchData(`/api/post/get_by_user`, userData, null)
         
             // http error
             if (!res.ok) {
@@ -242,7 +242,7 @@ function Profile () {
             pseudo: currentProfile
         }
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/get_by_user`, userData, null)
+            const res = await fetchData(`/api/project/get_by_user`, userData, null)
         
             // http error
             if (!res.ok) {
@@ -285,7 +285,7 @@ function Profile () {
         }
    
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/new_contact`, contactData, "identified")
+            const res = await fetchData(`/api/contact/new_contact`, contactData, "identified")
         
             // http error
             if (!res.ok) {
@@ -319,7 +319,7 @@ function Profile () {
         }
    
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/delete`, contactData, "identified")
+            const res = await fetchData(`/api/contact/delete`, contactData, "identified")
         
             // http error
             if (!res.ok) {
@@ -394,7 +394,7 @@ function Profile () {
             <ProfileMain>
                 <ProfileHeader>
                     <div>
-                        {photo ? <div className="profile-photo" style={{backgroundImage:`url(http://localhost:3000/api/${photo})`}}></div>
+                        {photo ? <div className="profile-photo" style={{backgroundImage:`url(/api/${photo})`}}></div>
                         : <div className="profile-photo" style={{backgroundImage:`url(${profilePicture})`}}></div>}
                     </div>
                     <ProfileInfos>

@@ -40,7 +40,7 @@ function Connexion() {
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/login`, connexionData, null)
+            const res = await fetchData(`/api/user/login`, connexionData, null)
         
             // http error
             if (!res.ok) {

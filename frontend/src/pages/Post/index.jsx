@@ -102,7 +102,7 @@ function Post() {
         }
 
         try{
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_by_id`, postData, "identified")
+            const res = await fetchData(`/api/post/get_by_id`, postData, "identified")
 
             if (!res.ok) {
                 const message = `An error has occured: ${res.status} - ${res.statusText}`;
@@ -152,7 +152,7 @@ function Post() {
         }
     
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/delete`, postData, "identified")
+            const res = await fetchData(`/api/post/delete`, postData, "identified")
         
             // http error
             if (!res.ok) {
@@ -191,7 +191,7 @@ function Post() {
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/add_view`, postData, null)
+            const res = await fetchData(`/api/post/add_view`, postData, null)
             
             // http error
             if (!res.ok) {
@@ -222,7 +222,7 @@ function Post() {
         }
     
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/comment/get_by_post`, commentData, "identified")
+            const res = await fetchData(`/api/comment/get_by_post`, commentData, "identified")
         
             // http error
             if (!res.ok) {
@@ -273,7 +273,7 @@ function Post() {
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/favorite/get`, favoriteData, "identified")
+            const res = await fetchData(`/api/favorite/get`, favoriteData, "identified")
         
             // http error
             if (!res.ok) {
@@ -341,7 +341,7 @@ function Post() {
         }
     
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/favorite/add`, favoriteData, "identified")
+            const res = await fetchData(`/api/favorite/add`, favoriteData, "identified")
         
             // http error
             if (!res.ok) {
@@ -375,7 +375,7 @@ function Post() {
         }
     
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/favorite/delete`, favoriteData, "identified")
+            const res = await fetchData(`/api/favorite/delete`, favoriteData, "identified")
         
             // http error
             if (!res.ok) {
@@ -432,7 +432,7 @@ function Post() {
             }
         
             try {
-                const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/comment/delete`, commentData, "identified")
+                const res = await fetchData(`/api/comment/delete`, commentData, "identified")
             
                 // http error
                 if (!res.ok) {
@@ -486,7 +486,7 @@ function Post() {
         }
           
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/comment/create_new_comment`, commentData, "identified")
+            const res = await fetchData(`/api/comment/create_new_comment`, commentData, "identified")
         
             // http error
             if (!res.ok) {
@@ -632,7 +632,7 @@ function Post() {
                                 {modifiedDate && <PostAuthor style={{marginTop:"-30px"}}>(Modifié le {modifiedDate})</PostAuthor>}
                                 {formattedContent?.map((sentence, index) => <p key={index}>{sentence}</p>)}
                                 {image && <div style={{display:"flex", flexWrap:"wrap", width:"100%", justifyContent:"space-between"}}>
-                                    {JSON.parse(image).map((currentImage, index) => <img key={index} src={`http://localhost:3000/api/${currentImage}`} alt="" style={{ maxWidth:"90%", height:"fit-content", margin:"20px"}}/>)}
+                                    {JSON.parse(image).map((currentImage, index) => <img key={index} src={`/api/${currentImage}`} alt="" style={{ maxWidth:"90%", height:"fit-content", margin:"20px"}}/>)}
                                 </div>}
                                 {isAuthor &&
                                     <div style={{ display:"flex", marginTop:"30px", alignItems:"center", flexWrap:"wrap"}}>

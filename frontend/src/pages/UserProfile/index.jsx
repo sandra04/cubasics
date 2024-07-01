@@ -143,7 +143,7 @@ function UserProfile () {
     async function fetchUser() {
         
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/get_private`, {}, "identified")
+            const res = await fetchData(`/api/user/get_private`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -182,7 +182,7 @@ function UserProfile () {
         setPostsLoading(true)
         
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_by_user_private`, {}, "identified")
+            const res = await fetchData(`/api/post/get_by_user_private`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -233,7 +233,7 @@ function UserProfile () {
         setCommentedLoading(true)
         
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_commented_posts_by_user`, {}, "identified")
+            const res = await fetchData(`/api/post/get_commented_posts_by_user`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -286,7 +286,7 @@ function UserProfile () {
         setFavoriteLoading(true)
         
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get_favorite_posts_by_user`, {}, "identified")
+            const res = await fetchData(`/api/post/get_favorite_posts_by_user`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -338,7 +338,7 @@ function UserProfile () {
     async function deleteUser() {
     
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/user/delete`, {}, "identified")
+            const res = await fetchData(`/api/user/delete`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -420,8 +420,8 @@ function UserProfile () {
                                     /> :
                                     <ProfileHeader>
                                         <ProfilePictureContainer>
-                                            {photo ? <div className="profile-photo" style={{backgroundImage:`url(http://localhost:3000/api/${photo})`}} onClick={() => setModifyingPhoto(true)}></div>
-                                            /*<ProfilePicture src={`http://localhost:3000/api/${photo}`} alt={`${pseudo} profile`} onClick={() => setModifyingPhoto(true)}/>*/:
+                                            {photo ? <div className="profile-photo" style={{backgroundImage:`url(/api/${photo})`}} onClick={() => setModifyingPhoto(true)}></div>
+                                            /*<ProfilePicture src={`/api/${photo}`} alt={`${pseudo} profile`} onClick={() => setModifyingPhoto(true)}/>*/:
                                             <div className="profile-photo" style={{backgroundImage:`url(${profilePicture})`}} onClick={() => setModifyingPhoto(true)}></div>
                                             /*<ProfilePicture src={profilePicture} alt={`${pseudo} profile`} onClick={() => setModifyingPhoto(true)}/>*/}
                                             <ProfilePictureModify src={modifyIcon} alt="" onClick={() => setModifyingPhoto(true)}/>

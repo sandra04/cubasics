@@ -130,7 +130,7 @@ function Contacts () {
         
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/get_contacts`, {}, "identified")
+            const res = await fetchData(`/api/contact/get_contacts`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -182,7 +182,7 @@ function Contacts () {
         setDataLoading(true)
         
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/get_contacts_waiting`, {}, "identified")
+            const res = await fetchData(`/api/contact/get_contacts_waiting`, {}, "identified")
         
             // http error
             if (!res.ok) {
@@ -227,7 +227,7 @@ function Contacts () {
         }
    
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/delete`, contactData, "identified")
+            const res = await fetchData(`/api/contact/delete`, contactData, "identified")
         
             // http error
             if (!res.ok) {
@@ -265,7 +265,7 @@ function Contacts () {
         }
    
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/contact/update`, contactData, "identified")
+            const res = await fetchData(`/api/contact/update`, contactData, "identified")
         
             // http error
             if (!res.ok) {

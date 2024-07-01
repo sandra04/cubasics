@@ -147,7 +147,7 @@ function Posts() {
   async function fetchCategories() {
 
     try {
-      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/categories`, {}, null)
+      const res = await fetchData(`/api/post/categories`, {}, null)
 
       // http error
       if (!res.ok) {
@@ -187,7 +187,7 @@ function Posts() {
     }
 
     try {
-      const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/post/get`, filterData, null)
+      const res = await fetchData(`/api/post/get`, filterData, null)
         
       // http error
       if (!res.ok) {
