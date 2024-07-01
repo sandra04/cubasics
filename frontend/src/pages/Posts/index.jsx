@@ -7,6 +7,7 @@ import { formatStringDate, encodeStringInput, fetchData } from '../../utils/tool
 
 import Card from '../../components/Card'
 import Search from '../../components/Search'
+import PageTitle from '../../components/PageTitle'
 
 
 
@@ -238,6 +239,7 @@ function Posts() {
 
   return (
     <PostsWrapper>
+      <PageTitle title="Cubasics - Posts du forum dédié à la MAO" />
       <PostsHeader>
           <h1>Voir les échanges de la communauté :</h1>
       </PostsHeader>

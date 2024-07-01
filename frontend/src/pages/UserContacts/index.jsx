@@ -11,6 +11,7 @@ import { formatDate, formatStringDate, fetchData } from '../../utils/tools'
 import { ActiveConversationContext } from '../../utils/context'
 
 import ProfileNav from '../../components/ProfileNav'
+import PageTitle from '../../components/PageTitle'
 
 
 import Connexion from '../Connexion'
@@ -295,6 +296,7 @@ function Contacts () {
     if (error){
         return(
             <ProfileWrapper style={{display:"block", textAlign:"center"}}>
+                <PageTitle title="Cubasics - Erreur de chargement" />
                 <p style={ {textAlign:"center", fontSize:"1.6em", margin:"100px auto 60px"} }>Il y a eu un problème</p>
                 <p style={{ textAlign:"center" }}><LinkForMainButton to="/">Retourner en page d'accueil</LinkForMainButton></p>
             </ProfileWrapper>
@@ -303,6 +305,7 @@ function Contacts () {
 
     return(
         <ProfileWrapper>
+            <PageTitle title="Cubasics - Vos contacts sur le forum" />
             <ProfileNav />
             <ProfileMain>
                 <ContactsNav>

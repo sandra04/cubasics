@@ -9,6 +9,7 @@ import {formatDate, formatStringDate, fetchData} from '../../utils/tools'
 
 import PopularityInfos from '../../components/PopularityInfos'
 import FormModifyProject from '../../components/FormModifyProject'
+import PageTitle from '../../components/PageTitle'
 
 import Connexion from '../Connexion'
 
@@ -158,7 +159,7 @@ function Project() {
         }
 
         try {
-            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/api/project/add_view`, projectData, null)
+            const res = await fetchData(`${process.env.REACT_APP_API_PATH}/api/project/add_view`, projectData, null)
         
             // http error
             if (!res.ok) {
@@ -198,6 +199,7 @@ function Project() {
     if (error) {
         return (
             <ProjectWrapper>
+                <PageTitle title="Cubasics - Projet introuvable" />
                 <p style={ {textAlign:"center", fontSize:"1.6em", marginBottom:"60px"} }>Le projet démandé ne semble plus exister</p>
                 <LinkForMainButton to="/projects">Retourner sur les autres projects</LinkForMainButton>
             </ProjectWrapper>
@@ -207,6 +209,7 @@ function Project() {
     if (currentProject === undefined) {
         return (
             <ProjectWrapper>
+                <PageTitle title="Cubasics - Problème de chargement du projet" />
                 <p style={ {textAlign:"center", fontSize:"1.6em", marginBottom:"60px"} }>Il y a eu un problème dans le chargement du projet</p>
                 <LinkForMainButton to={`/projets`}>Retourner sur les autres projets</LinkForMainButton>
             </ProjectWrapper>
@@ -240,6 +243,7 @@ function Project() {
     if(!token && (needConnexion === true)){
         return(
             <div>
+                <PageTitle title="Cubasics - Connexion" />
                 <Connexion/>
                 <LinkForSecondaryButton onClick={() => setNeedConnexion(false)}>Revenir sur la page précédente</LinkForSecondaryButton>
             </div>
@@ -248,14 +252,15 @@ function Project() {
 
     return(
         <div>
-            {isDeletedProject ?
-                <div style={{textAlign:"center"}}>
+            <PageTitle title={`Cubasics - Projet "${title}"`} />
+            {isDeletedProject
+            ? <div style={{textAlign:"center"}}>
                     <p style={{fontSize:"1.6em", fontWeight:700, marginTop:"150px", marginBottom:"50px"}}>Votre projet a bien été effacé</p>
                     <LinkForMainButton to="/projets">Retourner sur les autres projets</LinkForMainButton>
-                </div> :
-                <ProjectWrapper>
-                {modifyingProject ?
-                <FormModifyProject
+                </div>
+            : <ProjectWrapper>
+                {modifyingProject
+                ? <FormModifyProject
                     id={id}    
                     title={title}
                     searchedProfiles={searchedProfiles}
@@ -265,8 +270,8 @@ function Project() {
                     audio={audio}
                     modifyingProject={modifyingProject}
                     setModifyingProject={setModifyingProject}
-                /> :
-                <div>
+                />
+                : <div>
                     <section>
                         <header>
                             <ProjectTitle>{title}</ProjectTitle>
@@ -293,9 +298,10 @@ function Project() {
                         </ProjectContent>
                     </section>
                     {!isAuthor && <div style={ {marginBottom:"150px"} }>
-                        {token ?
-                            <LinkForMainButton to={`/profile/${user}`}>Contacter l'auteur</LinkForMainButton> :
-                            <MainButton onClick={() => setNeedConnexion(true)}>Contacter l'auteur</MainButton>}
+                        {token
+                        ? <LinkForMainButton to={`/profile/${user}`}>Contacter l'auteur</LinkForMainButton>
+                        : <MainButton onClick={() => setNeedConnexion(true)}>Contacter l'auteur</MainButton>
+                        }
                     </div>}
                 
                     <LinkForSecondaryButton to="/projets">Voir les autres projets</LinkForSecondaryButton>

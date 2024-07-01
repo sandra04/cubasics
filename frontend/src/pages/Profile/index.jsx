@@ -9,6 +9,7 @@ import { useToken } from '../../utils/hooks'
 import { formatStringDate, fetchData } from '../../utils/tools'
 
 import Card from '../../components/Card'
+import PageTitle from '../../components/PageTitle'
 
 import Connexion from '../../pages/Connexion'
 
@@ -380,6 +381,7 @@ function Profile () {
     if(!token && (needConnexion === true)){
         return(
             <div>
+                <PageTitle title="Cubasics - Connexion" />
                 <Connexion/>
                 <LinkForSecondaryButton onClick={() => setNeedConnexion(false)}>Revenir sur la page précédente</LinkForSecondaryButton>
             </div>
@@ -388,6 +390,7 @@ function Profile () {
 
     return(
         <ProfileWrapper>
+            <PageTitle title={`Cubasics - Profil de ${pseudo}`} />
             <ProfileMain>
                 <ProfileHeader>
                     <div>

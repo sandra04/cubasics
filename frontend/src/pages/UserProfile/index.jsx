@@ -14,6 +14,7 @@ import Card from '../../components/Card'
 import FormModifyPsd from '../../components/FormModifyPsd'
 import FormModifyPresentation from '../../components/FormModifyPresentation'
 import FormModifyPhoto from '../../components/FormModifyPhoto'
+import PageTitle from '../../components/PageTitle'
 
 import Connexion from '../Connexion'
 
@@ -78,27 +79,30 @@ const PostsContainer = styled.div`
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: left;
+  @media (min-width:992px){
+    width:80%;
+  }
 `
 
 const ItemWrapper = styled(Link)`
-  width: calc(100% - 60px);
-  margin: 15px;
-  margin-bottom: 30px;
-  background-color: #ffffff;
-  padding: 30px;
-  cursor: pointer;
-  transition: 300ms;
-  text-align:left;
-  text-decoration: none;
-  color: #000000;
-  border:2px solid #ffffff;
-  &:hover{
-    background-color: #d6d6d6;
-  }
-  @media (min-width:992px){
-    width: calc(33% - 90px);
-  }
+    width: calc(100% - 30px);
+    margin: 15px;
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 30px;
+    cursor: pointer;
+    transition: 300ms;
+    text-align:left;
+    text-decoration: none;
+    color: #000000;
+    border:2px solid #ffffff;
+    &:hover{
+        background-color: #d6d6d6;
+    }
+    @media (min-width:992px){
+        width: calc(33% - 30px);
+    }
 `
 
 
@@ -376,6 +380,7 @@ function UserProfile () {
     if (error){
         return(
             <ProfileWrapper style={{display:"block", textAlign:"center"}}>
+                <PageTitle title="Cubasics - Erreur de chargement" />
                 <p style={ {textAlign:"center", fontSize:"1.6em", margin:"100px auto 60px"} }>Il y a eu un problème</p>
                 <p style={{ textAlign:"center" }}><LinkForMainButton to="/">Retourner en page d'accueil</LinkForMainButton></p>
             </ProfileWrapper>
@@ -387,10 +392,12 @@ function UserProfile () {
         <div>
             {isDeletedUser ?
                 <div>
+                    <PageTitle title="Cubasics - Compte effacé" />
                     <p style={{fontSize:"1.6em", fontWeight:700, textAlign:"center", marginTop:"150px"}}>Votre compte a bien été effacé</p>
                     <LinkForMainButton to="/">Retourner en page d'accueil</LinkForMainButton>
                 </div> :
                 <ProfileWrapper>
+                    <PageTitle title="Cubasics - Votre espace sur le forum dédié à la MAO" />
                     <ProfileNav />
                     {modifyingPsd ?
                         <FormModifyPsd

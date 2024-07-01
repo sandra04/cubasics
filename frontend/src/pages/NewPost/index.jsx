@@ -8,6 +8,8 @@ import { checkLengthEnough, formatDate, validateIsGoodFormat, validateIsGoodSize
 
 import Connexion from '../Connexion'
 
+import PageTitle from '../../components/PageTitle'
+
 
 
 const PostWrapper = styled.div`
@@ -219,6 +221,7 @@ function NewPost() {
 
     return(
         <PostWrapper>
+            <PageTitle title="Cubasics - Créer un nouveau post" />
             {isDataSending ? (
                 <Loader/>
             ) :

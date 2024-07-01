@@ -8,6 +8,8 @@ import { encodeStringInput, fetchData } from '../../utils/tools'
 
 import UserProfile from '../UserProfile'
 
+import PageTitle from '../../components/PageTitle'
+
 
 
 const ConnexionWrapper = styled.main`
@@ -74,6 +76,7 @@ function Connexion() {
 
     return(
         <div>
+            <PageTitle title="Cubasics - Connexion" />
             {token ?
                 <UserProfile/>:
                 <ConnexionWrapper>

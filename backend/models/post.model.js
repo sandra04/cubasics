@@ -260,10 +260,10 @@ Post.findAll = (title, category, order, result) => {
 		query += `  ORDER BY p.id DESC`
 	}
 	else if (order === "views"){
-		query += ` ORDER BY p.views DESC`
+		query += ` ORDER BY p.views DESC, p.id DESC`
 	}
 	else if (order === "comments"){
-		query += ` ORDER BY COUNT(c.id) DESC`
+		query += ` ORDER BY COUNT(c.id) DESC, p.id DESC`
 	}
 
 	sql.query(query, (err, res) => {

@@ -7,6 +7,7 @@ import { formatStringDate, encodeStringInput, fetchData } from '../../utils/tool
 
 import Card from '../../components/Card'
 import Search from '../../components/Search'
+import PageTitle from '../../components/PageTitle'
 
 
 
@@ -37,7 +38,7 @@ const ProjectsContainer = styled.div`
   width:100%;
   display:flex;
   flex-wrap:wrap;
-  justify-content:space-between;
+  justify-content:left;
 `
 
 const DisplayFiltersLink = styled.p`
@@ -302,6 +303,7 @@ useEffect(() => {
 
   return (
     <ProjectsWrapper>
+      <PageTitle title="Cubasics - Projets musicaux sur le forum" />
       <ProjectsHeader>
           <h1>Chercher un projet en cours :</h1>
       </ProjectsHeader>
@@ -368,7 +370,7 @@ useEffect(() => {
         )}
       </ProjectsContainer>)}
     </ProjectsWrapper>
-  );
+  )
 }
 
 

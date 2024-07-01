@@ -1,5 +1,6 @@
 
 import styled from 'styled-components'
+import PageTitle from '../PageTitle'
 
 
 const ErrorWrapper = styled.div`
@@ -16,6 +17,7 @@ const ErrorWrapper = styled.div`
 function Error() {
     return (
     <ErrorWrapper>
+        <PageTitle title="Cubasics - Page introuvable" />
         <h1>Oups...</h1>
         <div>
             <p>Il semblerait que la page que vous cherchez n’existe pas</p>

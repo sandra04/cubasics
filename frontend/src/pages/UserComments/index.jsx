@@ -10,6 +10,7 @@ import { formatStringDate, fetchData } from '../../utils/tools'
 
 import ProfileNav from '../../components/ProfileNav'
 import Card from '../../components/Card'
+import PageTitle from '../../components/PageTitle'
 
 import Connexion from '../Connexion'
 
@@ -128,6 +129,7 @@ function UserComments () {
     if (error){
         return(
             <ProfileWrapper style={{display:"block", textAlign:"center"}}>
+                <PageTitle title="Cubasics - Erreur de chargement" />
                 <p style={ {textAlign:"center", fontSize:"1.6em", margin:"100px auto 60px"} }>Il y a eu un problème</p>
                 <p style={{ textAlign:"center" }}><LinkForMainButton to="/">Retourner en page d'accueil</LinkForMainButton></p>
             </ProfileWrapper>
@@ -136,6 +138,7 @@ function UserComments () {
     
     return(
         <ProfileWrapper>
+            <PageTitle title="Cubasics - Posts commentés" />
             <ProfileNav />
             <ProfileMain>
                 <section style={ {marginBottom:"100px"} }>

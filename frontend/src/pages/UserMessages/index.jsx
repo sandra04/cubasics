@@ -12,6 +12,7 @@ import { ActiveConversationContext } from '../../utils/context'
 import ProfileNav from '../../components/ProfileNav'
 import Message from '../../components/Message'
 import FormModifyMessage from '../../components/FormModifyMessage'
+import PageTitle from '../../components/PageTitle'
 
 import Connexion from '../Connexion'
 
@@ -28,7 +29,6 @@ const ContactsList = styled.section`
     width: 100%;
     height:100%;
     box-sizing:border-box;
-    padding: 0 15px;
     background-color:#ffffff;
     border-bottom:2px solid #d6d6d6;
     text-align:center;
@@ -37,6 +37,8 @@ const ContactsList = styled.section`
         border-right:1px solid #d6d6d6;
     }
 `
+/* padding: 0 15px; */
+
 const ContactItem = styled.div`
     width:100%;
     padding:30px 0;
@@ -236,7 +238,9 @@ function Messages () {
                 fetchMessages(activeConversation)
             }
             else{
-                fetchMessages(conversationsToModify[0].pseudo)
+                if (conversationsToModify.lenght > 0) {
+                    fetchMessages(conversationsToModify[0].pseudo)
+                }
             }
         }
 
@@ -508,6 +512,7 @@ function Messages () {
     if (error){
         return(
             <ProfileWrapper style={{display:"block", textAlign:"center"}}>
+                <PageTitle title="Cubasics - Erreur de chargement des messages" />
                 <p style={ {textAlign:"center", fontSize:"1.6em", margin:"100px auto 60px"} }>Il y a eu un problème</p>
                 <p style={{ textAlign:"center" }}><LinkForMainButton to="/">Retourner en page d'accueil</LinkForMainButton></p>
             </ProfileWrapper>
@@ -516,6 +521,7 @@ function Messages () {
 
     return(
         <ProfileWrapper>
+            <PageTitle title="Cubasics - Votre messagerie privée sur le forum" />
             <ProfileNav />
             {conversationsLoading ? <Loader/> :
             (<ContactsList>

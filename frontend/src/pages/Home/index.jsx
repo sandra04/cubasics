@@ -8,6 +8,7 @@ import { formatStringDate, fetchData } from '../../utils/tools'
 import { useToken } from '../../utils/hooks'
 
 import Card from '../../components/Card'
+import PageTitle from '../../components/PageTitle'
 
 
 
@@ -167,8 +168,9 @@ function Home() {
 
   return (
     <HomeWrapper>
+      <PageTitle title="Cubasics - Votre forum dédié à la MAO" />
       <HomeHeader>
-        <HomeTitle>Bienvenue dans ton nouveau forum préféré !</HomeTitle>
+        <HomeTitle>Bienvenue dans ton nouveau forum préféré dédié à la MAO !</HomeTitle>
         <p>Ici on est tous trop sympa, alors n'hésite pas à poser tes questions !</p>
       </HomeHeader>
       {!token && <HomeConnectWrapper>

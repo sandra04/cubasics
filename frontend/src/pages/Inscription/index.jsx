@@ -6,6 +6,8 @@ import { MainButton, LinkForMainButton, LinkForSecondaryButton, Loader } from '.
 
 import { checkLengthEnough, checkIsSecurized, formatDate, fetchData } from '../../utils/tools'
 
+import PageTitle from '../../components/PageTitle'
+
 
 
 const ConnexionWrapper = styled.main`
@@ -226,6 +228,7 @@ function Inscription() {
 
     return(
         <ConnexionWrapper>
+            <PageTitle title="Cubasics - Inscription au forum" />
             {isDataSending ? (
                 <Loader/>
             ) : (

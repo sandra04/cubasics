@@ -8,6 +8,8 @@ import { formatDate, checkLengthEnough, sendCheckboxSelected, cleanText, fetchDa
 
 import Connexion from '../Connexion'
 
+import PageTitle from '../../components/PageTitle'
+
 
 
 const ProjectWrapper = styled.div`
@@ -220,6 +222,7 @@ function NewProject() {
     
     return(
         <ProjectWrapper>
+            <PageTitle title="Cubasics - Créer un nouveau projet" />
             {isDataSending ? (
                 <Loader/>
             ) :

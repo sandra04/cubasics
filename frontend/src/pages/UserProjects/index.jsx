@@ -10,6 +10,7 @@ import { formatStringDate, fetchData } from '../../utils/tools'
 
 import ProfileNav from '../../components/ProfileNav'
 import Card from '../../components/Card'
+import PageTitle from '../../components/PageTitle'
 
 import Connexion from '../Connexion'
 
@@ -131,6 +132,7 @@ function UserProjects () {
     if (error){
         return(
             <ProfileWrapper style={{display:"block", textAlign:"center"}}>
+                <PageTitle title="Cubasics - Erreur de chargement de vos projets" />
                 <p style={ {textAlign:"center", fontSize:"1.6em", margin:"100px auto 60px"} }>Il y a eu un problème</p>
                 <p style={{ textAlign:"center" }}><LinkForMainButton to="/">Retourner en page d'accueil</LinkForMainButton></p>
             </ProfileWrapper>
@@ -139,6 +141,7 @@ function UserProjects () {
 
     return(
         <ProfileWrapper>
+            <PageTitle title="Cubasics - Vos projets sur le forum" />
             <ProfileNav />
             <ProfileMain>
                 <section style={ {marginBottom:"100px"} }>

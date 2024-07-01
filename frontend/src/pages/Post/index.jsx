@@ -12,6 +12,7 @@ import {checkLengthEnough, formatDate, formatStringDate, fetchData} from '../../
 import PopularityInfos from '../../components/PopularityInfos'
 import FormModifyPost from '../../components/FormModifyPost'
 import FormModifyComment from '../../components/FormModifyComment'
+import PageTitle from '../../components/PageTitle'
 
 import Connexion from '../Connexion'
 
@@ -541,6 +542,7 @@ function Post() {
     if (error) {
         return (
             <PostWrapper>
+                <PageTitle title="Cubasics - Post introuvable" />
                 <p style={ {textAlign:"center", fontSize:"1.6em", marginBottom:"60px"} }>Le post démandé ne semble plus exister</p>
                 <LinkForMainButton to="/posts">Retourner sur les autres posts</LinkForMainButton>
             </PostWrapper>
@@ -550,6 +552,7 @@ function Post() {
     if (currentPost === undefined) {
         return (
             <PostWrapper>
+                <PageTitle title="Cubasics - Problème de chargement du post" />
                 <p style={ {textAlign:"center", fontSize:"1.6em", marginBottom:"60px"} }>Il y a eu un problème dans le chargement du post</p>
                 <LinkForMainButton to="/posts">Retourner sur les autres posts</LinkForMainButton>
             </PostWrapper>
@@ -581,6 +584,7 @@ function Post() {
     if(!token && (needConnexion === true)){
         return(
             <div>
+                <PageTitle title="Cubasics - Connexion" />
                 <Connexion/>
                 <LinkForSecondaryButton onClick={() => setNeedConnexion(false)}>Revenir sur la page précédente</LinkForSecondaryButton>
             </div>
@@ -589,6 +593,7 @@ function Post() {
 
     return(
         <div>
+            <PageTitle title={`Cubasics - Post "${title}"`} />
             {isDeletedPost ?
                 <div style={{textAlign:"center"}}>
                     <p style={{fontSize:"1.6em", fontWeight:700, marginTop:"150px", marginBottom:"50px"}}>Votre post a bien été effacé</p>
